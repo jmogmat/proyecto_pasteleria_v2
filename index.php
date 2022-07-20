@@ -49,14 +49,13 @@ require_once 'header.php';
 
         <div class="texto_index">
             <h1>Nuestra Historia</h1>
-            <p class="p_index"><b>Nacimos durante el estado de alarma</b>, sabemos que fue un momento duro para todos, pero
-                nosotros
-                nos pasamos toda la cuarentena en casa haciendo postres cuando se nos ocurrió lanzar Panaderías M.L., <b>queremos
-                    reinventar la forma de estar más cerca de vosotros<b> sin estarlo. Todo ello cumpliendo las más estrictas normas
+            <p class="parrafo_index">Nacimos durante el estado de alarma, sabemos que fue un momento duro para todos, pero
+                nosotros nos pasamos toda la cuarentena en casa haciendo postres cuando se nos ocurrió lanzar Panaderías M.L., queremos
+                    reinventar la forma de estar más cerca de vosotros sin estarlo. Todo ello cumpliendo las más estrictas normas
                         de seguridad para
-                        que recibáis todos nuestros producto con la mejor calidad y libre de cualquier agente infeccioso.</p>
-                        <p class="p_index">En Panaderias M.L. <b>tenemos una gran pasión por nuestro pan, repostería y vuestra
-                                felicidad</b>. Todos
+                        que recibáis todos nuestros producto con la mejor calidad y libre de cualquier agente infeccioso.
+                        En Panaderias M.L. tenemos una gran pasión por nuestro pan, repostería y vuestra
+                                felicidad. Todos
                             los días de nuestra tienda física y online sale un cliente satisfecho.</p>
                         </div>
 
