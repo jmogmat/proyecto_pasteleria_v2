@@ -17,7 +17,8 @@ $sesion->checkSession();
     require_once 'head.php';
     ?>
 
-    <body>
+    <body class="body_index">
+       
         <div class="container-flex">
 
 <?php
@@ -48,16 +49,16 @@ require_once 'header.php';
         </div>
 
         <div class="texto_index">
-            <h1>Nuestra Historia</h1>
+            <h1 class="titulo_index">Nuestra Historia</h1>
             <p class="p_index">Nacimos durante el estado de alarma, sabemos que fue un momento duro para todos, pero
                 nosotros
                 nos pasamos toda la cuarentena en casa haciendo postres cuando se nos ocurrió lanzar Panaderías M.L., queremos
                     reinventar la forma de estar más cerca de vosotros sin estarlo. Todo ello cumpliendo las más estrictas normas
                         de seguridad para
-                        que recibáis todos nuestros producto con la mejor calidad y libre de cualquier agente infeccioso.</p>
-                        <p class="p_index">En Panaderias M.L. tenemos una gran pasión por nuestro pan, repostería y vuestra
+                        que recibáis todos nuestros producto con la mejor calidad y libre de cualquier agente infeccioso.
+                        En Panaderias M.L. tenemos una gran pasión por nuestro pan, repostería y vuestra
                                 felicidad. Todos
-                            los días de nuestra tienda física y online sale un cliente satisfecho.</p>
+                            los días de nuestra tienda física y online sale un cliente satisfecho.
                         </div>
 
 <?php
