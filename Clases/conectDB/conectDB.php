@@ -1490,49 +1490,67 @@ class conectDB {
 
         $sql = 'select pc.id, pp.producto, p.nombre, p.precio, pc.fecha_pedido, pc.estado from Pedidos_Clientes as pc inner join Pedidos_Productos as pp on pp.pedido = pc.id inner join Productos as p on p.id = pp.producto where pc.cliente = ?';
         $db = $this->pdo;
-        
+
         $array = [];
 
         try {
-            if($stmt = $db->prepare($sql)){
-                
+            if ($stmt = $db->prepare($sql)) {
+
                 $stmt->bindValue(1, $idUser);
                 $stmt->execute();
-                
-                while($row = $stmt->fetch()){
+
+                while ($row = $stmt->fetch()) {
                     array_push($array, $row);
                 }
             }
-            
+
             return $array;
-            
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
     }
-    
-    function getPriceOrder($idUser, $idOrder){
-        
+
+    function getPriceOrder($idUser, $idOrder) {
+
         $sql = 'select sum(p.precio) from Pedidos_Clientes as pc inner join Pedidos_Productos as pp on pp.pedido = pc.id inner join Productos as p on p.id = pp.producto where pc.cliente = ? and pc.id = ?';
         $db = $this->pdo;
-        
 
         try {
-            if($stmt = $db->prepare($sql)){
-                
+            if ($stmt = $db->prepare($sql)) {
+
                 $stmt->bindValue(1, $idUser);
                 $stmt->bindValue(2, $idOrder);
                 $stmt->execute();
-                
+
                 $row = $stmt->fetch();
-               
             }
-               return $row;  
+            return $row;
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    function getNameCategorieById($id) {
+
+        $sql = "select nombre_categoria from Categorias where id = ?";
+
+        $db = $this->pdo;
+
+        try {
+            
+            if($stmt = $db->prepare($sql)){
+                
+                $stmt->bindValue(1, $id);
+                $stmt->execute();
+                $row = $stmt->fetch();
+                
+            }
+            return $row[0];
+          
             
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
-        
     }
 
 }

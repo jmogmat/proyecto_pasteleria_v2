@@ -33,49 +33,45 @@ if(!isset($totalcantidad)){
 }
 
 ?>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a href="index.php"><img class="logo" src="images/logo.svg" alt="logo" /></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Inicio<span class="sr-only"></span></a>
+<header class="header">
+    <nav class="nav">    
+            <a href="index.php"><img class="logo" src="images/logo.svg" alt="logo" /></a>
+            <button class="nav-toggle" aria-label="Abrir menú"><i class="bi bi-list"></i></button>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php" style="color:#a29676">Inicio<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="panaderia.php">Panadería</a>
+                    <a class="nav-link" href="panaderia.php" style="color:#a29676">Panadería</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pasteleria.php">Pastelería</a>
+                    <a class="nav-link" href="pasteleria.php" style="color:#a29676">Pastelería</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>                  
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#a29676">Categorías</a>                  
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(231,232,227); border: none; border-radius: 8px;">
 
                         <?php
                         $categorias = $db->load_categories();
 
                         foreach ($categorias as $key => $categoria) {
 
-                            echo '<a class="dropdown-item" href="productsCategories.php?cod=' . $categoria['id'] . '">' . $categoria['nombre_categoria'] . '</a>';
+                            echo '<a class="dropdown-item" href="productsCategories.php?cod=' . $categoria['id'] . '" style="color:#a29676;">' . $categoria['nombre_categoria'] . '</a>';
                         }
                         ?>                 
 
                     </div>                   
                 </li>  
-                <li class="nav-item"><a class="nav-link" href="blog.php" class="pag_actual">Blog</a></li>
-                <li class="nav-item"><a class="nav-link" href="contacto.php" class="pag_actual">Contacto</a></li>
-            </ul>
-            <a class="nav-link" style="color: gray; cursor:pointer; font-size: 22px;"><i class="fas fa-shopping-cart"  data-toggle='modal'  data-target='#modalcart'></i><?php echo $totalcantidad; ?></a>
-        </div>
-    </nav>
-
+                <li class="nav-item"><a class="nav-link" href="blog.php" class="pag_actual" style="color:#a29676">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="contacto.php" class="pag_actual" style="color:#a29676">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" style="color:#a29676; cursor:pointer; font-size: 22px;">
+                <i class="cart-shop fas fa-shopping-cart"  data-bs-toggle='modal' data-bs-target='#modalcart'></i><?php echo $totalcantidad; ?></a></li>
+            
+    <div class="log_user">
+        
     <ul class="navbar-nav" style="margin-right: 1%">
-        <li class="li_header">
+        <li class="li_nav_categories">
             <?php
             $page = "";
             $rol = "";
@@ -114,35 +110,37 @@ if(!isset($totalcantidad)){
                 ?>
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: gray; font-size: 17px">
+                <a class="name_user nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#a29676; font-size: 17px">
                     <?php echo $us . " " . $usuario; ?>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(231,232,227); border: none; border-radius: 8px;">
                     <?php
                     if ($rol == '1') {
                         ?>
-                        <a class="dropdown-item" href="userAdminPage.php">Panel de administrador</a>
-                        <a class="dropdown-item" href="logout.php" name="logout">Cerrar sesion</a>
+                        <a class="dropdown-item" href="userAdminPage.php" style="color:#a29676;">Panel de administrador</a>
+                        <a class="dropdown-item" href="logout.php" name="logout" style="color:#a29676;">Cerrar sesion</a>
 
                         <?php
                     } else if ($rol == '2') {
                         ?>
-                        <a class="dropdown-item" href="userStandarPage.php">Escritorio</a>
-                        <a class="dropdown-item" href="logout.php" name="logout">Cerrar sesion</a>  
+                        <a class="dropdown-item" href="userStandarPage.php" style="color:#a29676;">Escritorio</a>
+                        <a class="dropdown-item" href="logout.php" name="logout" style="color:#a29676;">Cerrar sesion</a>  
                         <?php
                     }
                     ?>  
                 </div>
             </li>  
-        </ul>
+   
+       
 
     <?php } else { ?>
-
-        <a class="btn_login" href="login.php"  style="color: gray; cursor:pointer; font-size: 32px">
+        <a class="btn_login" href="login.php"  style="color:#a29676; cursor:pointer; font-size: 32px">
             <i class="fa fa-user-circle" aria-hidden="true"></i>
         </a>
+    </div>
     <?php } ?>
-</li>  
-</ul>
+                
+  </ul>
+ </nav>
 </header>
 

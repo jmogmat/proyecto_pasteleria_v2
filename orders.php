@@ -17,10 +17,10 @@ $userData = $db->getUserData($user_id);
 
 <!DOCTYPE html>
 <html lang="en">
-   <?php
-   require_once 'head.php';
-   ?>
-     
+    <?php
+    require_once 'head.php';
+    ?>
+
     <body style="background-color: whitesmoke">
         <div class="container-flex">
             <?php
@@ -135,10 +135,13 @@ $userData = $db->getUserData($user_id);
         <?php
         require_once 'footer.php';
         ?>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy"crossorigin="anonymous"></script>
+        <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
         <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="js/responsive_header.js"></script>
-        
+
     </body>
 </html>
 

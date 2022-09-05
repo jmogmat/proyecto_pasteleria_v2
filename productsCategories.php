@@ -15,96 +15,95 @@ $sesion->checkSession();
     require_once 'head.php';
     ?>
 
-    <body>
-
-        <div class="container-flex">
-            <div class="row justify-content-around">
-
+    <body class="body_productsCategories">
+        <div class="grid_products">
+            <div class="header_grid">
                 <?php
                 require_once 'header.php';
                 ?>
+            </div>
 
-                <?php
-                if (isset($_GET['cod'])) {
+            <?php
+            if (isset($_GET['cod'])) {
 
-                    $cod = $_GET['cod'];
-                                    
-                    $image = '';
+                $cod = $_GET['cod'];
 
-                    $db = new conect($_SESSION['rol']);
+                $db = new conect($_SESSION['rol']);
 
-                    $products = $db->getAllProductsByIdCategorie($cod);
+                $nameCategorie = $db->getNameCategorieById($cod);
+            }
+            ?>
 
-                    $imgProducts = $db->getImgByCodCateorie($cod);
+            <h2 class="title_products">Categoría <?php echo $nameCategorie; ?></h2>
 
-                    foreach ($products as $v) {
+            <?php
+            if (isset($_GET['cod'])) {
 
-                        foreach ($imgProducts as $i) {
+                $image = '';
 
-                            if ($i['id'] == $v['id']) {
+                $products = $db->getAllProductsByIdCategorie($cod);
 
-                                $nameImg = pathinfo($i['ruta'], PATHINFO_BASENAME);
+                $imgProducts = $db->getImgByCodCateorie($cod);
 
-                                if ($v['tipo_producto'] == '1') {
+                foreach ($products as $v) {
 
-                                    $image = 'images/imagenes_de_pasteles/' . $nameImg;
-                                }
-                                if ($v['tipo_producto'] == '2') {
-                                    $image = 'images/imagenes_de_pan/' . $nameImg;
-                                }
-                                ?>
-                                <div class="col-auto shadow rounded p-1" style="margin-top: 4%;">                            
-                                    <div class="" style="text-align: center">
-                                        <div style="width: 30rem;">
+                    foreach ($imgProducts as $i) {
 
-                                            <div class="">
-                                                <span class="image mr-half inline-block" style="text-align: center">
-                                                    <div><object type="image/svg+xml" data="<?php $image; ?>" >
-                                                            <img id="imagen" src="<?php echo $image; ?>" style="width: 400px; height: 300px" alt="<?php echo $v['nombre']; ?>"></img>
-                                                        </object>
-                                                    </div>
-                                                </span>
-                                            </div>                                       
-                                        </div>
-                                    </div>
-                                    <form id="formCart<?php echo $v['id']; ?>" name="formCart">
-                                        <input type="hidden" name="id" id="id" value="<?php echo $v['id']; ?>">
-                                        <input type="hidden" name="nombre" id="nombre" value="<?php echo $v['nombre']; ?>">
-                                        <input type="hidden" name="descripcion" id="descripcion" value="<?php echo $v['descripcion']; ?>">
-                                        <input type="hidden" name="precio" id="precio" value="<?php echo $v['precio']; ?>">
-                                        <input type="hidden" name="cantidad" id="cantidad" value="1">
-                                        <div class="card-body" style="text-align: center">
-                                            <fieldset class="border p-2 rounded">
-                                                <h5><?php echo $v['nombre']; ?></h5>
-                                                <p class=""><?php echo $v['descripcion']; ?></p>
-                                                <p class="" style="font-size: 20px; font-weight: bold;"><?php echo $v['precio']; ?> €</p>
-                                                <button class="btn btn-primary" style="cursor:pointer; font-size: 15px;" onclick="event.preventDefault();addToCart(<?php echo $v['id']; ?>)"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
-                                            </fieldset>
-                                        </div>
-                                    </form>
-                                </div>
-                                <?php
+                        if ($i['id'] == $v['id']) {
+
+                            $nameImg = pathinfo($i['ruta'], PATHINFO_BASENAME);
+
+                            if ($v['tipo_producto'] == '1') {
+
+                                $image = 'images/imagenes_de_pasteles/' . $nameImg;
                             }
+                            if ($v['tipo_producto'] == '2') {
+                                $image = 'images/imagenes_de_pan/' . $nameImg;
+                            }
+                            ?>
+                            <div class="products_cards shadow">                                                                                                                      
+                                <img class="img_product_card" src="<?php echo $image; ?>" alt="<?php echo $v['nombre']; ?>"></img>                                                                                           
+                                <form id="formCart<?php echo $v['id']; ?>" name="formCart">
+                                    <input type="hidden" name="id" id="id" value="<?php echo $v['id']; ?>">
+                                    <input type="hidden" name="nombre" id="nombre" value="<?php echo $v['nombre']; ?>">
+                                    <input type="hidden" name="descripcion" id="descripcion" value="<?php echo $v['descripcion']; ?>">
+                                    <input type="hidden" name="precio" id="precio" value="<?php echo $v['precio']; ?>">
+                                    <input type="hidden" name="cantidad" id="cantidad" value="1">
+                                    <div class="card-body" style="text-align: center">
+                                        <fieldset class="border p-2 rounded"">
+                                            <h5><?php echo $v['nombre']; ?></h5>
+                                            <p class=""><?php echo $v['descripcion']; ?></p>
+                                            <p class="" style="font-size: 20px; font-weight: bold;"><?php echo $v['precio']; ?> €</p>
+                                            <button class="btn btn-primary" style="cursor:pointer; font-size: 15px;" onclick="event.preventDefault();addToCart(<?php echo $v['id']; ?>)"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
+                                        </fieldset>
+                                    </div>
+                                </form>
+                            </div>
+                            <?php
                         }
                     }
                 }
+            }
+            ?>
+
+
+            <div class="footer_grid">
+                <?php
+                require_once 'footer.php';
                 ?>
-
-
             </div>
         </div>
-        <?php
-        require_once 'footer.php';
-        ?>
 
         <!-- JavaScript Bundle with Popper.js -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy"
-        crossorigin="anonymous"></script>
+        <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
         <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         crossorigin="anonymous"></script>
 
         <script src="js/addToCart.js"></script>
+        <script src="js/index.js"></script>
     </body>
 
 </html>

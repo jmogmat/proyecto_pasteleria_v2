@@ -10,27 +10,17 @@ $sesion->checkSession();
 <!DOCTYPE html>
 <html lang="es">
 
-<?php
-require_once 'head.php';
-?>
+    <?php
+    require_once 'head.php';
+    ?>
 
     <body>
 
         <div class="container-flex">
-<?php
-require_once 'header.php';
-?>
+            <?php
+            require_once 'header.php';
+            ?>
 
-            <div class="hambMenu" id="hambMenu">
-                <a class="itemMenu" href="index.php">Inicio</a>
-                <a class="itemMenu" href="panaderia.php">Panaderia</a>
-                <a class="itemMenu" href="pasteleria.php">Pasteleria</a>
-                <a class="itemMenu pag_actual" href="blog.php">Blog</a>
-                <a class="itemMenu" id="desplegable" href="#">Próximamente</a>
-                <a class="itemMenu item-desplegable submenu btn disabled" href="" hidden>Tarjetas regalo</a>
-                <a class="itemMenu item-desplegable submenu btn disabled" href="" hidden>Pasteles con tu cara</a>
-                <a class="itemMenu" id="item-final-menu" href="contacto.php">Contacto</a>
-            </div>
         </div>
 
         <div class="container mt-5">
@@ -105,14 +95,15 @@ require_once 'header.php';
 
 
 
-<?php
-require_once 'footer.php';
-?>
+        <?php
+        require_once 'footer.php';
+        ?>
 
         <!-- JavaScript Bundle with Popper.js -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy"
-        crossorigin="anonymous"></script>
+        <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
         <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-highlight@3.5.0/jquery.highlight.min.js"></script>
@@ -132,6 +123,7 @@ require_once 'footer.php';
         <!-- Javascript Header -->
         <script src="js/responsive_header.js"></script>
         <script src="js/functions.js"></script>
+        <script src="js/index.js"></script>
     </body>
 
 

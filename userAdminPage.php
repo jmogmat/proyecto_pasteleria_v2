@@ -182,7 +182,7 @@ $start = ($_GET['page'] - 1) * $productsByPage;
                             </fieldset>   
                         </form>   
                     </div>
-                     <div id="form_delete_categorie" style="margin-top: 8%"> 
+                    <div id="form_delete_categorie" style="margin-top: 8%"> 
                         <form id="deleteCategorie">
                             <fieldset class="border p-2">
                                 <div class="form-group">          
@@ -265,7 +265,6 @@ $start = ($_GET['page'] - 1) * $productsByPage;
 
                             <?php
                             $products = $db->getAllProducts($start, $productsByPage);
-                            
 
                             foreach ($products as $v) {
 
@@ -347,7 +346,10 @@ $start = ($_GET['page'] - 1) * $productsByPage;
         require_once 'footer.php';
         ?>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy"crossorigin="anonymous"></script>
+        <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
         <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="js/responsive_header.js"></script>
         <script src="js/navFormAdmin.js"></script>
