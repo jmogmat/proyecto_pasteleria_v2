@@ -29,18 +29,19 @@ if (!array_key_exists('updates', $_GET)) {
     require_once 'head.php';
     ?>
 
-    <body style="background-color: whitesmoke">
-        <div class="container-flex">
-            <?php
-            require_once 'header.php';
-            if (($_SERVER["REQUEST_METHOD"] == "POST") && isset($_POST['registeredUsers'])) {
-                header('location:registeredUsers.php');
-            }
-            ?>
-        </div>
-        <?php
-        require_once 'navAdminPanel.php';
-        ?>
+    <body class="body_usersUpdates">
+        
+          <div class="usersUpdates">
+            
+        <div style="flex-direction: column;">
+                <div>
+                    <?php
+                    require_once 'header.php';
+                    ?>
+                </div>
+              
+            </div> 
+     
 
         <?php
         $usersByPage = 5;
@@ -55,7 +56,7 @@ if (!array_key_exists('updates', $_GET)) {
         $start = ($_GET['updates'] - 1) * $usersByPage;
         ?> 
 
-        <div class="container-flex m-3">
+              <div class="container-flex" style="margin-top: 8%;">
             <div class="row col-8">
                 <div class="">
                     <div id="busqueda_admin" class="">
@@ -84,19 +85,18 @@ if (!array_key_exists('updates', $_GET)) {
                 </div>
             </div>
         </div>   
-    </div>
-
-
-
-    <div id="table_users_updates" class="col-auto container-flex m-3" style="margin-top:2%">
+  
+                  
+    <div id="table_users_updates" class="col-auto container-flex " style="margin-top:2%">
         <div class="row">
             <form>
                 <fieldset class="border p-2">        
                     <div class="form-group">
-                        <div class="flex-container" style="display: flex">
-                            <div style="margin-left: 35%"><object type="image/svg+xml" data="images/update.svg" style="width: 35px; height: 40px;"><img src="images/update.svg"></img></object></div>
-                            <div style="align-content: center; margin-left: 1%"><h4 style="color:slategrey; margin:auto">Actualizaciones de usuarios</h4></div>
-                        </div>
+                        <div class="flex-container" style="display: flex; justify-content: center">                               
+                            <img src="images/update.svg" width="25px" height="30px"></img>                                                       
+                         <h4 style="color: slategrey; margin-left: 10px">Actualizaciones de usuarios</h4><br><br>                        
+                         </div>
+                        <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -165,6 +165,7 @@ if (!array_key_exists('updates', $_GET)) {
                                 ?>
                             </tbody>
                         </table>
+                            </div>
 
                         <nav aria-label="paginadoActualizacionesUsuarios" style="margin-left:40%">
                             <ul class="pagination">
@@ -198,96 +199,11 @@ if (!array_key_exists('updates', $_GET)) {
         </div>
     </div>
 
-    <div id="tableUpdates" class="col-auto container-flex m-3" style="margin-top:2%; display: none">
-        <div class="row">
-            <form>
-                <fieldset class="border p-2">        
-                    <div class="form-group">
-                        <div class="flex-container" style="display: flex">
-                            <div style="margin-left: 35%"><object type="image/svg+xml" data="images/update.svg" style="width: 35px; height: 40px;"><img src="images/update.svg"></img></object></div>
-                            <div style="align-content: center; margin-left: 1%"><h4 style="color:slategrey; margin:auto">Actualizaciones de usuarios</h4></div>
-                        </div>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Anterior nombre</th>
-                                    <th scope="col">Anterior apellido</th>
-                                    <th scope="col">Anterior email</th>
-                                    <th scope="col">Anterior telefono</th>
-                                    <th scope="col">Anterior dirección</th>
-                                    <th scope="col">Anterior ciudad</th>
-                                    <th scope="col">Anterior codigo postal</th>
-                                    <th scope="col">Anterior provincia</th>
-                                    <th scope="col">Anterior imagen</th>
-                                    <th scope="col">Anterior password</th>
-                                    <th scope="col">Anterior fecha de registro</th>
-
-
-                                    <th scope="col">Nuevo nombre</th>
-                                    <th scope="col">Nuevo apellido</th>
-                                    <th scope="col">Nuevo email</th>
-                                    <th scope="col">Nuevo telefono</th>
-                                    <th scope="col">Nueva dirección</th>
-                                    <th scope="col">Nueva ciudad</th>
-                                    <th scope="col">Nuevo código postal</th>
-                                    <th scope="col">Nueva provincia</th>
-                                    <th scope="col">Nueva imagen</th>
-                                    <th scope="col">Nuevo password</th>                                
-                                    <th scope="col">Nueva fecha de registro</th>
-                                    <th scope="col">Usuario</th>
-                                    <th scope="col">Fecha modificación</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr id="tr_search_user">
-                                    <td id="td_search_user_1"></td>
-                                    <td id="td_search_user_2"></td>
-                                    <td id="td_search_user_3"></td> 
-                                    <td id="td_search_user_4"></td>
-                                    <td id="td_search_user_5"></td>
-                                    <td id="td_search_user_6"></td> 
-                                    <td id="td_search_user_7"></td>
-                                    <td id="td_search_user_8"></td>
-                                    <td id="td_search_user_9"></td> 
-                                    <td id="td_search_user_10"></td>
-                                    <td id="td_search_user_11"></td>
-                                    <td id="td_search_user_12"></td> 
-                                    <td id="td_search_user_13"></td> 
-                                    <td id="td_search_user_14"></td> 
-                                    <td id="td_search_user_15"></td>
-                                    <td id="td_search_user_16"></td>
-                                    <td id="td_search_user_17"></td>
-                                    <td id="td_search_user_18"></td> 
-                                    <td id="td_search_user_19"></td>
-                                    <td id="td_search_user_20"></td>
-                                    <td id="td_search_user_21"></td> 
-                                    <td id="td_search_user_22"></td>
-                                    <td id="td_search_user_23"></td>
-                                    <td id="td_search_user_24"></td> 
-                                </tr>
-                            </tbody>
-                        </table>
-
-
-
-
-
-                    </div>
-                </fieldset>
-            </form>
-
-
-        </div>
-    </div>
-
-
-
-
-
+ 
     <?php
     require_once 'footer.php';
     ?>
+    </div>
     <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
@@ -295,6 +211,7 @@ if (!array_key_exists('updates', $_GET)) {
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="js/responsive_header.js"></script>
     <script src="js/searchUpdateByDate.js"></script>
+    <script src="js/index.js"></script>
 
 </body>
 </html>

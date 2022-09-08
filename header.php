@@ -117,7 +117,12 @@ if(!isset($totalcantidad)){
                     <?php
                     if ($rol == '1') {
                         ?>
-                        <a class="dropdown-item" href="userAdminPage.php" style="color:#a29676;">Panel de administrador</a>
+                        <a class="dropdown-item" href="userAdminPage.php" name="logout" style="color:#a29676;">Productos y categorías</a>
+                        <a class="dropdown-item" href="editionAdminPage.php" name="logout" style="color:#a29676;">Permisos de usuarios</a>
+                        <a class="dropdown-item" href="orders.php" name="logout" style="color:#a29676;">Pedidos</a>                                              
+                        <a class="dropdown-item" href="activeUsersInTheSystem.php" style="color:#a29676;">Usuarios activos</a>
+                        <a class="dropdown-item" href="usersDeleted.php" style="color:#a29676;">Usuarios eliminados</a>
+                        <a class="dropdown-item" href="usersUpdates.php" style="color:#a29676;">Actualizaciones de usuarios</a>                 
                         <a class="dropdown-item" href="logout.php" name="logout" style="color:#a29676;">Cerrar sesion</a>
 
                         <?php

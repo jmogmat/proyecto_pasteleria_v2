@@ -17,50 +17,24 @@ $userData = $db->getUserData($user_id);
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0" />
-        <title>Inicio</title>
-        <!-- Estilos página-->
-        <link rel="stylesheet" href="css/pagina_panaderia.css">
-        <link rel="stylesheet" href="css/panaderia_v2.css">
-        <!-- Sweetalert2 -->
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <!-- CSS Bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-CuOF+2SnTUfTwSZjCXf01h7uYhfOBuxIhGKPbfEJ3+FqH/s6cIFN9bGr1HmAg4fQ" crossorigin="anonymous" />
-        <!-- Iconos Font Awesome--->
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-        <!-- Iconos Font Awesome--->
-        <script src="https://kit.fontawesome.com/8da8d43521.js" crossorigin="anonymous"></script>
-        <style>
-            .user_nav:hover{
-                background-color: rgb(10,10,10,0.2);
-                transition: background-color 0.1;
-                color: white;
-            }
-
-            #imgUsuario{
-                border-radius:150px;
-            }
-
-
-        </style>
-    </head>
-    <body style="background-color: rgb(246,246,246)">
-        <div class="container-flex">
-            <?php require_once 'header.php'; ?>
-        </div>
-        <div style="margin-top: 2.5%;"></div>
-        <div style="text-align: center; justify-content: center; align-items: center;" class="shadow">
-            <div style="margin: auto; background-color: rgba(0,0,0,0.1); height: 120px; "><br>
-                <h2 style="color: rgba(24,23,28,0.7)" ">Mi cuenta</h2>
-                <p style="color:gray">DETALLES DE LA CUENTA</p>
+     <?php
+    require_once 'head.php';
+    ?>
+    <body class="body_userStandarPage">
+        <div class="userStandarPage">
+        <div style="flex-direction: column;">
+                <div>
+                    <?php
+                    require_once 'header.php';
+                    ?>
+                </div>
+              
+            </div> 
+       
+            <div class="div_accountUser">         
+                <h2>Mi cuenta</h2>
+                <p>DETALLES DE LA CUENTA</p>         
             </div>
-        </div>
         <div class="container" style="margin-top: 2%;">
             <div class="row row-cols-2">
                 <div class="col-3">
@@ -77,7 +51,7 @@ $userData = $db->getUserData($user_id);
                             ?>
                             <div class="account-user circle">
                                 <span class="image mr-half inline-block" style="text-align: center">
-                                    <div><object type="image/svg+xml" data="imgUsers//avatar.svg" style="width: 70; height: 70">
+                                    <div><object type="image/svg+xml" data="imgUsers//avatar.svg" style="width: 70px; height: 70px">
                                             <img src="/img_users/avatar.svg"></img>
                                         </object>
                                     </div>
@@ -90,7 +64,7 @@ $userData = $db->getUserData($user_id);
                         <div class="account-user circle">
                             <span class="image mr-half inline-block" style="text-align: center">
                                 <div><object type="image/svg+xml" data="<?php $imagen; ?>" >
-                                        <img id="imgUsuario" src="<?php echo $imagen; ?>" style="width: 190px; height: 190px" class="shadow" alt="imagen_de_usuario"></img>
+                                        <img class="img_user_profile" id="imgUsuario" src="<?php echo $imagen; ?>" style="width: 190px; height: 190px" class="shadow" alt="imagen_de_usuario"></img>
                                     </object>
                                 </div>
                             </span>
@@ -100,42 +74,43 @@ $userData = $db->getUserData($user_id);
 
 
                 <div id="nav_user"> 
-                    <div class="row vertical-tabs" style="display: flex;">
+                    <div class="row vertical-tabs" style="display: flex; margin-bottom: 8%;">
                         <div class="large-3 col-border">
                             <div class="">
                                 <?php
-                                echo '<div style="text-align:center"><h3>' . $userData['nombre'] . " " . $userData['apellido'] . '</h3></div>';
+                                echo '<div class="userName"><h3>' . $userData['nombre'] . " " . $userData['apellido'] . '</h3></div>';
                                 ?>
                             </div>
                         </div>                        
                         <div>
-                            <fieldset class="border p-2" style="border-radius: 5px">
+                            <fieldset class="fieldset_user_1">
                                 <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                                    <a class="user_nav nav-link" id="escritorio" role="tab"  onclick="dashboardProfileUser()">Escritorio</a>
-                                    <a class="user_nav nav-link" id="cuenta" role="tab" data-toggle="modal" data-target="#modal1">Editar cuenta</a>
-                                    <a class="user_nav nav-link" id="pedidos"  role="tab" onclick="ordersUser()">Pedidos</a>
-                                    <a class="user_nav nav-link" id="direccion"  role="tab"  onclick="event.preventDefault();addressBilling()">Dirección</a>
-                                    <a class="user_nav nav-link" id="borrar_imagen"  role="tab" onclick="deleteImgUser()">Eliminar imagen de perfil</a>
+                                    <a class="user_nav nav-link edit_text_list" id="escritorio" role="tab"  onclick="dashboardProfileUser()">Escritorio</a>
+                                    <a class="user_nav nav-link edit_text_list" id="cuenta" role="tab" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</a>
+                                    <a class="user_nav nav-link edit_text_list" id="pedidos"  role="tab" onclick="ordersUser()">Pedidos</a>
+                                    <a class="user_nav nav-link edit_text_list" id="direccion"  role="tab"  onclick="event.preventDefault();addressBilling()">Dirección</a>
+                                    <a class="user_nav nav-link edit_text_list" id="borrar_imagen"  role="tab" onclick="deleteImgUser()">Eliminar imagen de perfil</a>
                                     <input type="text" id="idUsuario" value="<?php echo $user_id; ?>" style="display:none">
-                                    <a class="user_nav nav-link" id="eliminar_cuenta"  role="tab" onclick="deleteAccountUser()">Eliminar cuenta</a>
+                                    <a class="user_nav nav-link edit_text_list" id="eliminar_cuenta"  role="tab" onclick="deleteAccountUser()">Eliminar cuenta</a>
                                 </div>
                             </fieldset>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="contenido"  class="">
-                <fieldset class="border p-2" style="border-radius: 5px">
+            <div class="user_panel">    
                     <div id="contenido">
-                        <div id="dashboardUser">
+                        <fieldset class="fieldset_user_2 lg">
+                            <div class="text_user_panel"id="dashboardUser">
                             <p>Hola <?php echo '<b>' . $userData['nombre'] . " " . $userData['apellido'] . '</b>' ?>! Desde el escritorio de tu cuenta puedes ver tus pedidos recientes, gestionar tus direcciones de envío y facturación, editar tu contraseña y los detalles de tu cuenta.</p>
                             <div class="row justify-content-around">                               
-                                <button id="btn2"  class="btn btn-outline-secondary btn-xs col-2" data-toggle="modal" data-target="#modal1">Editar cuenta</button>
-                                <button id="btn3"  class="btn btn-outline-secondary btn-xs col-2" onclick="ordersUser()">Pedidos</button> 
-                                <button id="btn4"  class="btn btn-outline-secondary btn-xs col-2" onclick="addressBilling()">Dirección</button>
-                                <button id="btn4"  class="btn btn-outline-secondary btn-xs col-2" onclick="logout()">Salir</button>
+                                <button id="btn2"  class="btn btn-outline-secondary btn-xs col-2 boton_user_panel" data-toggle="modal" data-target="#modal1">Editar cuenta</button>
+                                <button id="btn3"  class="btn btn-outline-secondary btn-xs col-2 boton_user_panel" onclick="ordersUser()">Pedidos</button> 
+                                <button id="btn4"  class="btn btn-outline-secondary btn-xs col-2 boton_user_panel" onclick="addressBilling()">Dirección</button>
+                                <button id="btn4"  class="btn btn-outline-secondary btn-xs col-2 boton_user_panel" onclick="logout()">Salir</button>
                             </div>
                         </div>
+                        </fieldset>
 
                         <div id="editProfileUser" class="container">
                             <div class="modal" tabindex="-1" id="modal1">
@@ -315,14 +290,13 @@ $userData = $db->getUserData($user_id);
                     ?>
 
             </div>
-        </fieldset>
+       
     </div>            
-</div>
 </div>
 <?php
 require_once 'footer.php';
 ?>
-
+</div>
 <!-- JavaScript Bundle with Popper.js -->
 <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -335,6 +309,7 @@ require_once 'footer.php';
 <script src="js/updateAddressUser.js"></script>
 <script src="js/deleteImgUser.js"></script>
 <script src="js/deleteAccountUser.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
 
