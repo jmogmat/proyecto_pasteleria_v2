@@ -159,6 +159,10 @@ body {
         background-color: rgb(231,232,227);
 
     }
+    
+    .panelLateral {
+        background-color: rgb(45,87,44);
+    }
 
 
 }
@@ -210,10 +214,6 @@ body {
 
 
 }
-
-
-
-
 
 /*Grid de la pagina index*/
 
@@ -568,10 +568,15 @@ input {
     color: white;
 }
 
-#imgUsuario{
-    border-radius:150px;
-}
+.img_user_profile {
+    width: 240px; 
+    height: 240px;
+    border-radius: 120px;
+    border: 5px solid white;
+    box-shadow: inset 0 0 5px yellow, 0 0 25px yellow, 0 0 15px yellow;
 
+
+}
 
 .divUserAdminpage, .usersDeleted, .usersUpdates, .userStandarPage {
 
@@ -592,7 +597,7 @@ input {
 
 
 .userStandarPage {
-    background-color: rgb(99,101,0);
+    background-color: rgb(100,36,36);
 }
 
 .div_accountUser {
@@ -600,24 +605,38 @@ input {
     text-align: center; 
     justify-content: center; 
     align-items: center; 
-    margin-top: 6%;  
     height: 150px;
     border: 5px solid white;
-    width: 50%;
-    margin-left: 25%;
+    width: 30%;
     border-radius: 60px;
     box-shadow: inset 0 0 5px yellow, 0 0 5px yellow, 0 0 15px yellow;
-    background-color: rgb(51,12,50);
-    margin-top: 8%;
-    /*animation: parpadeo 2s infinite backwards;*/
+    background-color: rgb(45,87,44);
+    display: flex;
+    margin: 7% auto;
 
 
+}
+
+.flicker1, .flicker2 {
+    font-size: 65px;
+    margin: 2%; 
+
+
+}
+
+.flicker1 {
+    animation: parpadeo 1s infinite backwards;
+}
+
+.flicker2 {
+    animation: parpadeo 1.5s infinite backwards;
 }
 
 .div_accountUser h2 {
     text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
     font-size: 80px;
     font-family: 'Dancing Script', cursive;
+
 
 }
 
@@ -638,36 +657,46 @@ input {
 .fieldset_user_1 {  
     border: 3px solid white;
     box-shadow: inset 0 0 5px yellow, 0 0 5px yellow, 0 0 15px yellow;
-    background-color: rgb(51,12,50);
+    background-color: rgb(45,87,44);
     cursor: pointer;
-
 
 }
 
-.fieldset_user_2 {  
+.fieldset_pedidos {  
+
+    background-color: whitesmoke;
+    color: black;
+    text-shadow: none;
+
+}
+
+.user_panel {
+    border: 3px solid white;
+    box-shadow: inset 0 0 5px yellow, 0 0 5px yellow, 0 0 15px yellow;
+    background-color: rgb(45,87,44);
+    padding: 2%;
+    margin: 1%;
+    height: 50%;
+    text-align: center;
+}
+
+
+.p_helloUser {
+
     text-align: center;
     color: white;
     text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
-    border: 3px solid white;
-    box-shadow: inset 0 0 5px yellow, 0 0 5px yellow, 0 0 15px yellow;
-    background-color: rgb(51,12,50);
-    cursor: pointer;
-    height: 190px;
-
-
 }
+
 
 .text_user_panel {
     margin-top: 1%;
-    
+
 }
 
 .boton_user_panel {
-    
-   
-    
+    color: orange;
 }
-
 
 
 
@@ -679,7 +708,10 @@ input {
     }
 }
 
-
+#addressBilling {
+    color: white;
+    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
+}
 
 
 /* Footer styles y grid */

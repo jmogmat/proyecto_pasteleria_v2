@@ -32,8 +32,12 @@ $userData = $db->getUserData($user_id);
             </div> 
        
             <div class="div_accountUser">         
+                <p class="flicker1">&#x2618</p>
+                <div>
                 <h2>Mi cuenta</h2>
-                <p>DETALLES DE LA CUENTA</p>         
+                <p>+DETALLES DE LA CUENTA+</p>
+                </div>
+                <p class="flicker2">&#x2618</p>
             </div>
         <div class="container" style="margin-top: 2%;">
             <div class="row row-cols-2">
@@ -63,9 +67,9 @@ $userData = $db->getUserData($user_id);
 
                         <div class="account-user circle">
                             <span class="image mr-half inline-block" style="text-align: center">
-                                <div><object type="image/svg+xml" data="<?php $imagen; ?>" >
-                                        <img class="img_user_profile" id="imgUsuario" src="<?php echo $imagen; ?>" style="width: 190px; height: 190px" class="shadow" alt="imagen_de_usuario"></img>
-                                    </object>
+                                <div>
+                                        <img class="img_user_profile" id="imgUsuario" src="<?php echo $imagen; ?>"  alt="imagen_de_usuario"></img>
+                                    
                                 </div>
                             </span>
                         </div></div><br>
@@ -84,8 +88,8 @@ $userData = $db->getUserData($user_id);
                         </div>                        
                         <div>
                             <fieldset class="fieldset_user_1">
-                                <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                                    <a class="user_nav nav-link edit_text_list" id="escritorio" role="tab"  onclick="dashboardProfileUser()">Escritorio</a>
+                                <div class="nav flex-column nav-pills panelLateral" role="tablist" aria-orientation="vertical">
+                                    <a class="user_nav nav-link edit_text_list" id="escritorio" role="tab" onclick="dashboardProfileUser()">Escritorio</a>
                                     <a class="user_nav nav-link edit_text_list" id="cuenta" role="tab" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</a>
                                     <a class="user_nav nav-link edit_text_list" id="pedidos"  role="tab" onclick="ordersUser()">Pedidos</a>
                                     <a class="user_nav nav-link edit_text_list" id="direccion"  role="tab"  onclick="event.preventDefault();addressBilling()">Dirección</a>
@@ -100,14 +104,14 @@ $userData = $db->getUserData($user_id);
             </div>
             <div class="user_panel">    
                     <div id="contenido">
-                        <fieldset class="fieldset_user_2 lg">
+                        <fieldset class="fieldset_user_2">
                             <div class="text_user_panel"id="dashboardUser">
-                            <p>Hola <?php echo '<b>' . $userData['nombre'] . " " . $userData['apellido'] . '</b>' ?>! Desde el escritorio de tu cuenta puedes ver tus pedidos recientes, gestionar tus direcciones de envío y facturación, editar tu contraseña y los detalles de tu cuenta.</p>
+                                <p class="p_helloUser">Hola <?php echo '<b>' . $userData['nombre'] . " " . $userData['apellido'] . '</b>' ?>! Desde el escritorio de tu cuenta puedes ver tus pedidos recientes, gestionar tus direcciones de envío y facturación, editar tu contraseña y los detalles de tu cuenta.</p>
                             <div class="row justify-content-around">                               
-                                <button id="btn2"  class="btn btn-outline-secondary btn-xs col-2 boton_user_panel" data-toggle="modal" data-target="#modal1">Editar cuenta</button>
-                                <button id="btn3"  class="btn btn-outline-secondary btn-xs col-2 boton_user_panel" onclick="ordersUser()">Pedidos</button> 
-                                <button id="btn4"  class="btn btn-outline-secondary btn-xs col-2 boton_user_panel" onclick="addressBilling()">Dirección</button>
-                                <button id="btn4"  class="btn btn-outline-secondary btn-xs col-2 boton_user_panel" onclick="logout()">Salir</button>
+                                <button id="btn2"  class="btn btn-outline-light btn-xs col-2 text-warning" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</button>
+                                <button id="btn3"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="ordersUser()">Pedidos</button> 
+                                <button id="btn4"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="addressBilling()">Dirección</button>
+                                <button id="btn4"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="logout()">Salir</button>
                             </div>
                         </div>
                         </fieldset>
@@ -158,7 +162,7 @@ $userData = $db->getUserData($user_id);
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                            <button class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -172,8 +176,8 @@ $userData = $db->getUserData($user_id);
                         <label>Las siguientes direcciones se utilizarán por defecto en la página de pago.</label><br><br>
                         <div>
                             <label style="font-weight: bold">Dirección de facturación y envio</label><br><br>
-                            <a id="a_billing" style="text-decoration: none; color: grey;cursor: pointer;" data-toggle="modal" data-target="#modal2">Editar</a>
-                            <p><?php echo '<i>' . $userData['nombre'] . " " . $userData['apellido'] . '</i>'; ?></p>
+                            <a id="a_billing" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal2">Editar</a>
+                            <p style="margin-top: 2%;"><?php echo '<i>' . $userData['nombre'] . " " . $userData['apellido'] . '</i>'; ?></p>
                             <p><?php echo '<i>' . $userData['direccion'] . " CP: " . $userData['codigo_postal'] . " " . $userData['ciudad'] . '</i>'; ?></p>
                             <p><?php echo '<i>' . $userData['provincia'] . '</i>'; ?></p>
                         </div>
@@ -213,7 +217,7 @@ $userData = $db->getUserData($user_id);
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                        <button class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>
@@ -229,7 +233,7 @@ $userData = $db->getUserData($user_id);
                         <div id="orders" style="display: none">
 
                             <div id="lista_categoria"  style="margin-top: 8%">
-                                <fieldset class="border p-2">
+                                <fieldset class="fieldset_pedidos border p-2">
                                     <h2 style="margin-top: 0px; text-align: center">Mis pedidos</h2>
                                     <table class="table table-hover" id="tabla_pedido">
                                         <thead>

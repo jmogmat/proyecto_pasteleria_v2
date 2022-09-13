@@ -14,7 +14,6 @@ function addressBilling() {
 }
 
 function ordersUser() {
-    console.log('hola')
     document.getElementById('orders').style.display = "inline";
     document.getElementById('addressBilling').style.display = "none";
     document.getElementById('dashboardUser').style.display = "none";
