@@ -14,6 +14,9 @@
                                 if (isset($_SESSION['carrito'])) {
                                     $total = 0;
                                     $myCart = $_SESSION['carrito'];
+                                    echo "<pre>";
+                                    var_dump($myCart);
+                                    echo "</pre>";
 
                                     for ($i = 0; $i <= count($myCart) - 1; $i++) {
                                         if (isset($myCart[$i])) {
@@ -21,10 +24,13 @@
                                                 ?>
                                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                                                     <div class="row col-12" >
-                                                        <div class="col-6 p-0" style="text-align: left; color: #000000;"><h6 class="my-0">Cantidad: <?php echo $myCart[$i]['cantidad'] ?> : <?php echo $myCart[$i]['nombre']; ?></h6>
+                                                        <div class="col-6 p-0" style="text-align: left; color: #000000;"><h6 class="my-0">Cantidad: 
+                                                            <?php 
+                                                            
+                                                            echo $myCart[$i]['cantidad'] ?> : <?php echo $myCart[$i]['nombre']; ?></h6>
                                                         </div>
                                                         <div class="col-6 p-0"  style="text-align: right; color: #000000;" >
-                                                            <span class="text-muted" style="text-align: right; color: #000000;"><?php echo $myCart[$i]['precio'] * $myCart[$i]['cantidad']; ?> €</span>
+                                                            <span class="text-muted" style="text-align: right; color: #000000;"><?php echo $myCart[$i]['precio']?> €</span>
                                                         </div>
                                                     </div>
                                                 </li>

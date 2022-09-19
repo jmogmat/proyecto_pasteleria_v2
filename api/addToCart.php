@@ -17,12 +17,6 @@ if (isset($_SESSION['carrito'])) {
             $cantidad = $_POST['cantidad'];
             $pos = -1;
 
-            for ($i = 0; $i <= count($carrito) - 1; $i++) {
-                if ($id == $carrito[$i]['id']) {
-                    
-                }
-            }
-
             if ($pos != -1) {
 
                 $total = $carrito[$pos]['cantidad'] + $cantidad;
@@ -35,19 +29,41 @@ if (isset($_SESSION['carrito'])) {
                 return;
             } else {
 
-                $carrito[] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
+               
+                $boolean = false;
 
-                $_SESSION['carrito'] = $carrito;
+                foreach ($_SESSION['carrito'] as $key => $valor) {
 
-                echo json_encode(['success' => '202']);
-                return;
+                    if ($id === $valor['id']) {
+
+                        $totalCantidad = $valor['cantidad']+1;
+                        
+                        $_SESSION['carrito'][$key] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $totalCantidad);
+                        
+                        echo json_encode(['success' => '202']);
+                        return;
+                    } else {
+                        $boolean = false;
+                    }
+                }
+
+                if ($boolean === false) {
+
+                    $carrito[] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
+
+                    $_SESSION['carrito'] = $carrito;
+
+                    echo json_encode(['success' => '202']);
+                    return;
+
+                   
+                } 
             }
         }
     }
 } else {
 
-    if (isset($_POST['id']) && isset($_POST['nombre'])) {
-
+    if (isset($_POST['id']) && isset($_POST['nombre'])) { //Pasa por aquí si no existe la sesion del carrito
         $carrito = [];
 
         $id = $_POST['id'];
@@ -55,6 +71,7 @@ if (isset($_SESSION['carrito'])) {
         $descripcion = $_POST['descripcion'];
         $precio = $_POST['precio'];
         $cantidad = $_POST['cantidad'];
+
         $carrito[] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
 
         $_SESSION['carrito'] = $carrito;
@@ -66,6 +83,4 @@ if (isset($_SESSION['carrito'])) {
         return;
     }
 }
-
-
 ?>

@@ -17,103 +17,103 @@ $userData = $db->getUserData($user_id);
 
 <!DOCTYPE html>
 <html lang="en">
-     <?php
+    <?php
     require_once 'head.php';
     ?>
     <body class="body_userStandarPage">
         <div class="userStandarPage">
-        <div style="flex-direction: column;">
+            <div style="flex-direction: column;">
                 <div>
                     <?php
                     require_once 'header.php';
                     ?>
                 </div>
-              
+
             </div> 
-       
+
             <div class="div_accountUser">         
                 <p class="flicker1">&#x2618</p>
                 <div>
-                <h2>Mi cuenta</h2>
-                <p>+DETALLES DE LA CUENTA+</p>
+                    <h2>Mi cuenta</h2>
+                    <p>+DETALLES DE LA CUENTA+</p>
                 </div>
                 <p class="flicker2">&#x2618</p>
             </div>
-        <div class="container" style="margin-top: 2%;">
-            <div class="row row-cols-2">
-                <div class="col-3">
-                    <div id="img_user">
+            <div class="container" style="margin-top: 2%;">
+                <div class="row row-cols-2">
+                    <div class="col-3">
+                        <div id="img_user">
 
-                        <?php
-                        $imgUsuario = $db->getImgUser($user_id); //Obtenemos la ruta completa donde se encuentra el fichero
+                            <?php
+                            $imgUsuario = $db->getImgUser($user_id); //Obtenemos la ruta completa donde se encuentra el fichero
 
-                        $extension = pathinfo($imgUsuario, PATHINFO_EXTENSION); //Obtenemos la extensión del fichero
+                            $extension = pathinfo($imgUsuario, PATHINFO_EXTENSION); //Obtenemos la extensión del fichero
 
-                        $imagen = 'imgUsers/codigoUsuario_' . $user_id . '/' . $user_id . '.' . $extension; //Creamos la ruta concatenando los valores para poder ponerlos en el atributo src de la imagen del usuario
+                            $imagen = 'imgUsers/codigoUsuario_' . $user_id . '/' . $user_id . '.' . $extension; //Creamos la ruta concatenando los valores para poder ponerlos en el atributo src de la imagen del usuario
 
-                        if ($imgUsuario == "") {
+                            if ($imgUsuario == "") {
+                                ?>
+                                <div class="account-user circle">
+                                    <span class="image mr-half inline-block" style="text-align: center">
+                                        <div><object type="image/svg+xml" data="imgUsers//avatar.svg">
+                                                <img class="img_user_default" src="/img_users/avatar.svg"></img>
+                                            </object>
+                                        </div>
+                                    </span>
+                                </div></div>
+                            <?php
+                        } else {
                             ?>
+
                             <div class="account-user circle">
                                 <span class="image mr-half inline-block" style="text-align: center">
-                                    <div><object type="image/svg+xml" data="imgUsers//avatar.svg" style="width: 70px; height: 70px">
-                                            <img src="/img_users/avatar.svg"></img>
-                                        </object>
+                                    <div>
+                                        <img class="img_user_profile" id="imgUsuario" src="<?php echo $imagen; ?>"  alt="imagen_de_usuario"></img>
+
                                     </div>
                                 </span>
-                            </div></div>
-                        <?php
-                    } else {
-                        ?>
+                            </div></div><br>
 
-                        <div class="account-user circle">
-                            <span class="image mr-half inline-block" style="text-align: center">
-                                <div>
-                                        <img class="img_user_profile" id="imgUsuario" src="<?php echo $imagen; ?>"  alt="imagen_de_usuario"></img>
-                                    
+                    <?php } ?>
+
+
+                    <div id="nav_user"> 
+                        <div class="row vertical-tabs" style="display: flex; margin-bottom: 8%;">
+                            <div class="large-3 col-border">
+                                <div class="">
+                                    <?php
+                                    echo '<div class="userName"><h3>' . $userData['nombre'] . " " . $userData['apellido'] . '</h3></div>';
+                                    ?>
                                 </div>
-                            </span>
-                        </div></div><br>
-
-                <?php } ?>
-
-
-                <div id="nav_user"> 
-                    <div class="row vertical-tabs" style="display: flex; margin-bottom: 8%;">
-                        <div class="large-3 col-border">
-                            <div class="">
-                                <?php
-                                echo '<div class="userName"><h3>' . $userData['nombre'] . " " . $userData['apellido'] . '</h3></div>';
-                                ?>
+                            </div>                        
+                            <div>
+                                <fieldset class="fieldset_user_1">
+                                    <div class="nav flex-column nav-pills panelLateral" role="tablist" aria-orientation="vertical">
+                                        <a class="user_nav nav-link edit_text_list" id="escritorio" role="tab" onclick="dashboardProfileUser()">Escritorio</a>
+                                        <a class="user_nav nav-link edit_text_list" id="cuenta" role="tab" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</a>
+                                        <a class="user_nav nav-link edit_text_list" id="pedidos"  role="tab" onclick="ordersUser()">Pedidos</a>
+                                        <a class="user_nav nav-link edit_text_list" id="direccion"  role="tab"  onclick="event.preventDefault();addressBilling()">Dirección</a>
+                                        <a class="user_nav nav-link edit_text_list" id="borrar_imagen"  role="tab" onclick="deleteImgUser()">Eliminar imagen de perfil</a>
+                                        <input type="text" id="idUsuario" value="<?php echo $user_id; ?>" style="display:none">
+                                        <a class="user_nav nav-link edit_text_list" id="eliminar_cuenta"  role="tab" onclick="deleteAccountUser()">Eliminar cuenta</a>
+                                    </div>
+                                </fieldset>
                             </div>
-                        </div>                        
-                        <div>
-                            <fieldset class="fieldset_user_1">
-                                <div class="nav flex-column nav-pills panelLateral" role="tablist" aria-orientation="vertical">
-                                    <a class="user_nav nav-link edit_text_list" id="escritorio" role="tab" onclick="dashboardProfileUser()">Escritorio</a>
-                                    <a class="user_nav nav-link edit_text_list" id="cuenta" role="tab" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</a>
-                                    <a class="user_nav nav-link edit_text_list" id="pedidos"  role="tab" onclick="ordersUser()">Pedidos</a>
-                                    <a class="user_nav nav-link edit_text_list" id="direccion"  role="tab"  onclick="event.preventDefault();addressBilling()">Dirección</a>
-                                    <a class="user_nav nav-link edit_text_list" id="borrar_imagen"  role="tab" onclick="deleteImgUser()">Eliminar imagen de perfil</a>
-                                    <input type="text" id="idUsuario" value="<?php echo $user_id; ?>" style="display:none">
-                                    <a class="user_nav nav-link edit_text_list" id="eliminar_cuenta"  role="tab" onclick="deleteAccountUser()">Eliminar cuenta</a>
-                                </div>
-                            </fieldset>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="user_panel">    
+                <div class="user_panel">    
                     <div id="contenido">
                         <fieldset class="fieldset_user_2">
                             <div class="text_user_panel"id="dashboardUser">
                                 <p class="p_helloUser">Hola <?php echo '<b>' . $userData['nombre'] . " " . $userData['apellido'] . '</b>' ?>! Desde el escritorio de tu cuenta puedes ver tus pedidos recientes, gestionar tus direcciones de envío y facturación, editar tu contraseña y los detalles de tu cuenta.</p>
-                            <div class="row justify-content-around">                               
-                                <button id="btn2"  class="btn btn-outline-light btn-xs col-2 text-warning" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</button>
-                                <button id="btn3"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="ordersUser()">Pedidos</button> 
-                                <button id="btn4"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="addressBilling()">Dirección</button>
-                                <button id="btn4"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="logout()">Salir</button>
+                                <div class="row justify-content-around">                               
+                                    <button id="btn2"  class="btn btn-outline-light btn-xs col-2 text-warning" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</button>
+                                    <button id="btn3"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="ordersUser()">Pedidos</button> 
+                                    <button id="btn4"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="addressBilling()">Dirección</button>
+                                    <button id="btn4"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="logout()">Salir</button>
+                                </div>
                             </div>
-                        </div>
                         </fieldset>
 
                         <div id="editProfileUser" class="container">
@@ -224,96 +224,61 @@ $userData = $db->getUserData($user_id);
                         </div>
                     </div>
 
-                    <?php
-                    $orders = $db->getOrdersUser($user_id);
+                    <div id="orders" style="display: none;">
+                        <table class="table table-bordered" id="tabla_pedido" style="background-color: whitesmoke">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Fecha pedido</th>
+                                    <th scope="col">Código del pedido</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $orders = $db->getOrdersUser($user_id);
 
-                    if (!empty($orders)) {
-                        ?>
+                                if (!empty($orders)) {
 
-                        <div id="orders" style="display: none">
+                                    foreach ($orders as $key => $value) {
+                                        ?>                          
+                                        <tr>
+                                            <td><?php echo substr($value[4], 0, -8); ?></td>                                 
+                                            <td>#<?php echo $value[0]; ?></td>
+                                            <td><div class="div_link_order"><a class="link_order" href='detailsOrder.php?codOrder=<?php echo $value[0];?>'>Ver detalle del pedido</a></div></td>
+                                        </tr>
+                                        
+                                        <?php
+                                    }
+                                } else {
+                                    
+                                   //Meter un alert por aquí
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
 
-                            <div id="lista_categoria"  style="margin-top: 8%">
-                                <fieldset class="fieldset_pedidos border p-2">
-                                    <h2 style="margin-top: 0px; text-align: center">Mis pedidos</h2>
-                                    <table class="table table-hover" id="tabla_pedido">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Código del pedido</th>
-                                                <th scope="col">Código producto</th>
-                                                <th sdcope='col'>Nombre producto</th>                                     
-                                                <th sdcope='col'>Precio</th>
-                                                <th sdcope='col'>Fecha pedido</th>
-                                                <th sdcope='col'>Estado del pedido</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $valor = '';
+            </div>            
+        </div>
+        <?php
+        require_once 'footer.php';
+        ?>
+    </div>
+    <!-- JavaScript Bundle with Popper.js -->
+    <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-                                            foreach ($orders as $key => $valor) {
-                                                ?>
-
-                                                <tr>
-                                                    <td>#<?php echo $valor[0]; ?></td>
-                                                    <td><?php echo $valor[1]; ?></td>
-                                                    <td><?php echo $valor[2]; ?></td>
-                                                    <td><?php echo $valor[3]; ?>€</td>
-                                                    <td><?php echo $valor[4]; ?></td>
-                                                    <?php
-                                                    if ($valor[5] == '1') {
-                                                        $pendiente = 'pendiente de confirmación';
-                                                    } else {
-                                                        $pendiente = 'pedido confirmado';
-                                                    }
-                                                    ?>
-                                                    <td><?php echo $pendiente; ?></td>                                         
-                                                </tr>
-                                                <?php
-                                            }
-
-                                            $totalPrice = $db->getPriceOrder($user_id, $valor[0]);
-                                            ?>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td style="color: red; font-weight: bold">Total:</td>
-                                                <td style="font-weight: bold"><?php echo round($totalPrice[0], 2); ?>€</td>                                      
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </fieldset>
-                            </div>          
-
-                        </div>
-                        <?php
-                    } else {
-                        
-                    }
-                    ?>
-
-            </div>
-       
-    </div>            
-</div>
-<?php
-require_once 'footer.php';
-?>
-</div>
-<!-- JavaScript Bundle with Popper.js -->
-<script src="/css/bootstrap5/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-<script src="js/dashboardUser.js"></script>
-<script src="js/updateAccountUser.js"></script>
-<script src="js/responsive_header.js"></script>
-<script src="js/updateAddressUser.js"></script>
-<script src="js/deleteImgUser.js"></script>
-<script src="js/deleteAccountUser.js"></script>
-<script src="js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="js/dashboardUser.js"></script>
+    <script src="js/updateAccountUser.js"></script>
+    <script src="js/responsive_header.js"></script>
+    <script src="js/updateAddressUser.js"></script>
+    <script src="js/deleteImgUser.js"></script>
+    <script src="js/deleteAccountUser.js"></script>
+    <script src="js/index.js"></script>
+    
 </body>
 </html>
 

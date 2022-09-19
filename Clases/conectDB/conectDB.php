@@ -1491,7 +1491,8 @@ class conectDB {
         $sql = 'select pc.id, pp.producto, p.nombre, p.precio, pc.fecha_pedido, pc.estado from Pedidos_Clientes as pc inner join Pedidos_Productos as pp on pp.pedido = pc.id inner join Productos as p on p.id = pp.producto where pc.cliente = ?';
         $db = $this->pdo;
 
-        $array = [];
+        $orders = [];
+        
 
         try {
             if ($stmt = $db->prepare($sql)) {
@@ -1500,11 +1501,22 @@ class conectDB {
                 $stmt->execute();
 
                 while ($row = $stmt->fetch()) {
-                    array_push($array, $row);
+                    
+  
+
+                    if (array_key_exists($row[0], $orders)) {
+
+                       $orders[$row[0]][] = $row;
+                        
+                        
+                    } else {
+
+                      $orders[$row[0]] = $row;
+                    }
                 }
             }
 
-            return $array;
+            return $orders;
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
@@ -1537,17 +1549,14 @@ class conectDB {
         $db = $this->pdo;
 
         try {
-            
-            if($stmt = $db->prepare($sql)){
-                
+
+            if ($stmt = $db->prepare($sql)) {
+
                 $stmt->bindValue(1, $id);
                 $stmt->execute();
                 $row = $stmt->fetch();
-                
             }
             return $row[0];
-          
-            
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
