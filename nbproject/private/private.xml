@@ -5,10 +5,8 @@
         <group>
             <file>file:/C:/xampp/htdocs/pasteleria/detailsOrder.php</file>
             <file>file:/C:/xampp/htdocs/pasteleria/api/addToCart.php</file>
-            <file>file:/C:/xampp/htdocs/pasteleria/js/addToCart.js</file>
             <file>file:/C:/xampp/htdocs/pasteleria/modalCart.php</file>
-            <file>file:/C:/xampp/htdocs/pasteleria/header.php</file>
-            <file>file:/C:/xampp/htdocs/pasteleria/productsCategories.php</file>
+            <file>file:/C:/xampp/htdocs/pasteleria/api/deleteItem.php</file>
             <file>file:/C:/xampp/htdocs/pasteleria/userStandarPage.php</file>
             <file>file:/C:/xampp/htdocs/pasteleria/index.php</file>
             <file>file:/C:/xampp/htdocs/pasteleria/Clases/conectDB/conectDB.php</file>
