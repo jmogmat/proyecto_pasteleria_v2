@@ -88,6 +88,7 @@ index fk_cliente_pedidos(cliente)
 create table Pedidos_Productos(
 producto int(20) not null,
 pedido bigint(20) not null,
+cantidad bigint(20) not null,
 primary key(producto, pedido),
 foreign key (producto) references Productos(id)
 						on delete cascade

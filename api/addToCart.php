@@ -16,52 +16,65 @@ if (isset($_SESSION['carrito'])) {
             $precio = $_POST['precio'];
             $cantidad = $_POST['cantidad'];
             $pos = -1;
+            $stock = $_POST['stock'];
 
-            if ($pos != -1) {
+            if ($stock > 1) {
 
-                $total = $carrito[$pos]['cantidad'] + $cantidad;
+                if ($cantidad <= $stock && $cantidad > 0) {
 
-                $carrito[$pos] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
 
-                $_SESSION['carrito'] = $carrito;
+                    if ($pos != -1) {
 
-                echo json_encode(['success' => '202']);
-                return;
-            } else {
+                        $total = $carrito[$pos]['cantidad'] + $cantidad;
 
-               
-                $boolean = false;
+                        $carrito[$pos] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
 
-                foreach ($_SESSION['carrito'] as $key => $valor) {
+                        $_SESSION['carrito'] = $carrito;
 
-                    if ($id === $valor['id']) {
-
-                        $totalCantidad = $valor['cantidad']+1;
-                        
-                        $_SESSION['carrito'][$key] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $totalCantidad);
-                        
                         echo json_encode(['success' => '202']);
                         return;
                     } else {
+
+
                         $boolean = false;
+
+                        foreach ($_SESSION['carrito'] as $key => $valor) {
+
+                            if ($id === $valor['id']) {
+
+                                $totalCantidad = $valor['cantidad'] + 1;
+
+                                $_SESSION['carrito'][$key] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $totalCantidad);
+
+                                echo json_encode(['success' => '202']);
+                                return;
+                            } else {
+                                $boolean = false;
+                            }
+                        }
+
+                        if ($boolean === false) {
+
+                            $carrito[] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
+
+                            $_SESSION['carrito'] = $carrito;
+
+                            echo json_encode(['success' => '202']);
+                            return;
+                        }
                     }
-                }
-
-                if ($boolean === false) {
-
-                    $carrito[] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
-
-                    $_SESSION['carrito'] = $carrito;
-
-                    echo json_encode(['success' => '202']);
+                } else {
+                    echo json_encode(['error' => '403', 'msg' => 'La cantidad introducida no está disponible!']);
                     return;
-
-                   
-                } 
+                }
+            } else {
+                echo json_encode(['error' => '403', 'msg' => 'Lo sentimos, no tenemos stock en estos momentos!']);
+                return;
             }
         }
     }
 } else {
+
 
     if (isset($_POST['id']) && isset($_POST['nombre'])) { //Pasa por aquí si no existe la sesion del carrito
         $carrito = [];
@@ -71,16 +84,26 @@ if (isset($_SESSION['carrito'])) {
         $descripcion = $_POST['descripcion'];
         $precio = $_POST['precio'];
         $cantidad = $_POST['cantidad'];
+        $stock = $_POST['stock'];
 
-        $carrito[] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
+        if ($stock > 1) {
 
-        $_SESSION['carrito'] = $carrito;
+            if ($cantidad <= $stock && $cantidad > 0) {
 
-        echo json_encode(['success' => '202']);
-        return;
-    } else {
-        echo json_encode(['error' => '403', 'msg' => 'No se ha podido agregar un producto al carrito!']);
-        return;
+                $carrito[] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $cantidad);
+
+                $_SESSION['carrito'] = $carrito;
+
+                echo json_encode(['success' => '202']);
+                return;
+            } else {
+                echo json_encode(['error' => '403', 'msg' => 'La cantidad introducida no está disponible!']);
+                return;
+            }
+        } else {
+            echo json_encode(['error' => '403', 'msg' => 'Lo sentimos, no tenemos stock en estos momentos!']);
+            return;
+        }
     }
 }
 ?>

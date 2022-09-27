@@ -68,12 +68,14 @@ $sesion->checkSession();
                                     <input type="hidden" name="nombre" id="nombre" value="<?php echo $v['nombre']; ?>">
                                     <input type="hidden" name="descripcion" id="descripcion" value="<?php echo $v['descripcion']; ?>">
                                     <input type="hidden" name="precio" id="precio" value="<?php echo $v['precio']; ?>">
-                                    <input type="hidden" name="cantidad" id="cantidad" value="1">
+                                    <input type="hidden" name="stock" value="<?php echo $v['cantidad']; ?>">
                                     <div class="card-body" style="text-align: center">
                                         <fieldset class="border p-2 rounded"">
                                             <h5><?php echo $v['nombre']; ?></h5>
                                             <p class=""><?php echo $v['descripcion']; ?></p>
                                             <p class="" style="font-size: 20px; font-weight: bold;"><?php echo $v['precio']; ?> €</p>
+                                            <p class="" style="font-size: 15px;"><?php echo "En stock  ". $v['cantidad']; ?></p>
+                                            <label style="padding: 3%;">Introducir cantidad</label><input type="number" name="cantidad" style="width:15%;" min="1" max="<?php echo $v['cantidad']; ?>" onkeyup="this.value=checkInputAmount(this.value)"><br><br>
                                             <button class="btn btn-primary" style="cursor:pointer; font-size: 15px;" onclick="event.preventDefault();addToCart(<?php echo $v['id']; ?>)"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
                                         </fieldset>
                                     </div>
@@ -104,6 +106,7 @@ $sesion->checkSession();
 
         <script src="js/addToCart.js"></script>
         <script src="js/index.js"></script>
+        <script src="js/checkInputAmount.js"></script>
     </body>
 
 </html>

@@ -25,8 +25,6 @@ if (isset($_SESSION['carrito'])) {
 
             if ($value['cantidad'] == 1) {
 
-                $indice = $key;
-
                 unset($_SESSION['carrito'][$key]);
 
                 $newArrayCart = [];

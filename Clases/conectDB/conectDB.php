@@ -1441,7 +1441,7 @@ class conectDB {
         $idOrder = "";
 
         $sql = "insert into Pedidos_Clientes (cliente,estado) values (?,1)";
-        $sql2 = 'insert into Pedidos_Productos (producto, pedido) values (?,?)';
+        $sql2 = 'insert into Pedidos_Productos (producto, pedido, cantidad) values (?,?,?)';
         $sql3 = 'select max(id) from Pedidos_Clientes';
 
         $db = $this->pdo;
@@ -1475,6 +1475,7 @@ class conectDB {
 
                     $result->bindValue(1, $product['id']);
                     $result->bindValue(2, $idOrder[0]);
+                    $result->bindValue(3, $product['cantidad']);
                     $result->execute();
                 }
             }
@@ -1560,6 +1561,13 @@ class conectDB {
         } catch (\Exception $ex) {
             echo $ex->getMessage();
         }
+    }
+    
+    
+    function getAmountProduct(){
+        
+         $sql = "select cantidad  from Productos";
+        
     }
 
 }
