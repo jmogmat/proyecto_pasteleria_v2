@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once(__DIR__ . '/../autoload.php');
 
@@ -23,8 +24,10 @@ if (isset($_SESSION['carrito'])) {
 
             foreach ($client as $key => $v) {
 
-                if (!$db->userOrder($v['id'], $_SESSION['carrito'])) {
-
+                if (!$db->userOrder($v, $_SESSION['carrito'])) {
+                    
+                     unset($_SESSION['carrito']);
+                     
                     echo json_encode(['success' => '202']);
                     return;
                 } else {

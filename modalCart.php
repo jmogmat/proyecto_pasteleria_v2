@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
+
         <div class="modal fade" id="modalcart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -23,9 +15,7 @@
                                         if (isset($_SESSION['carrito'])) {
                                             $total = 0;
                                             $myCart = $_SESSION['carrito'];
-                                            /* echo "<pre>";
-                                              var_dump($myCart);
-                                              echo "</pre>"; */
+                                            
 
                                             for ($i = 0; $i <= count($myCart) - 1; $i++) {
                                                 if (isset($myCart[$i])) {
@@ -94,15 +84,12 @@
 
             function purchase() {
 
-
                 if (total !== '0 €') {
 
-                    fetch('api/purchase.php', {
-                        method: 'POST',
-
-                    }).then(response => response.json())
+                    fetch('api/purchase.php')
+  
+                    .then(response => response.json())
                             .then(data => {
-
                                 if (data.success) {
                                     Swal.fire({
                                         icon: 'success',
@@ -115,9 +102,8 @@
 
                                         if (result.isConfirmed) {
                                             document.location.reload();
-
-
                                         }
+
                                     })
 
                                     return;
@@ -133,7 +119,9 @@
                                 }
                             })
 
+
                 } else {
+
                     Swal.fire({
                         icon: 'error',
                         title: 'Ups...',
@@ -215,59 +203,54 @@
 
             function deleteItem(id) {
 
-                 $.ajax({
-               
-                url: 'api/deleteItem.php',
+                $.ajax({
 
-              data: {
-                       itemId: id
+                    url: 'api/deleteItem.php',
 
-                   },
+                    data: {
+                        itemId: id
 
-               
-                type: 'POST',
+                    },
 
-               
-                dataType: 'json',
+                    type: 'POST',
 
-              
-                success: function (data) {
-                    
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Borrado!',
-                        text: 'Se ha quitado un elemento del carrito!',
-                        confirmButtonText:
-                                'Continuar',
+                    dataType: 'json',
 
-                    }).then((result) => {
+                    success: function (data) {
 
-                        if (result.isConfirmed) {
-                            document.location.reload();
-                        }
-                    })
-                   
-                    return
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Borrado!',
+                            text: 'Se ha quitado un elemento del carrito!',
+                            confirmButtonText:
+                                    'Continuar',
+
+                        }).then((result) => {
+
+                            if (result.isConfirmed) {
+                                document.location.reload();
+                            }
+                        })
+
+                        return
 
 
-                },
+                    },
 
-                error: function (error, msg) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Ups...',
-                        text: 'No se ha podido borrar el elemento!',
-                    })
+                    error: function (error, msg) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ups...',
+                            text: 'No se ha podido borrar el elemento!',
+                        })
 
-                },
+                    },
 
-            });
+                });
 
             }
 
         </script>
-    </body>
-</html>
-
+ 
 
 

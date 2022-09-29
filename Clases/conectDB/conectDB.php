@@ -1440,9 +1440,11 @@ class conectDB {
 
         $idOrder = "";
 
-        $sql = "insert into Pedidos_Clientes (cliente,estado) values (?,1)";
+        $sql = 'insert into Pedidos_Clientes (cliente) values (?);';
         $sql2 = 'insert into Pedidos_Productos (producto, pedido, cantidad) values (?,?,?)';
         $sql3 = 'select max(id) from Pedidos_Clientes';
+        $sql4 = 'select cantidad from Productos where id = ?';
+        $sql5 = 'update Productos set cantidad = ? where id= ?';
 
         $db = $this->pdo;
 
@@ -1453,7 +1455,7 @@ class conectDB {
             if ($stmt = $db->prepare($sql)) {
 
                 $stmt->bindValue(1, $idClient);
-
+     
                 if ($stmt->execute()) {
 
                     if ($res = $db->prepare($sql3)) {
@@ -1472,11 +1474,28 @@ class conectDB {
             foreach ($products as $product) {
 
                 if ($result = $db->prepare($sql2)) {
+                    
+                    if($r = $db->prepare($sql4)){
+                        
+                        $r->bindValue(1, $product['id']);
+                        $r->execute();
+                        $amountProduct = $r->fetch();
+                    }
+                    
+                    $totalAmount = $amountProduct[0] - $product['cantidad'];
 
                     $result->bindValue(1, $product['id']);
                     $result->bindValue(2, $idOrder[0]);
                     $result->bindValue(3, $product['cantidad']);
                     $result->execute();
+                    
+                    if($resul = $db->prepare($sql5)){
+                        
+                        $resul->bindValue(1, $totalAmount);
+                        $resul->bindValue(2, $product['id']);
+                        $resul->execute();
+                        
+                    }
                 }
             }
 
