@@ -171,7 +171,7 @@ values (old.nombre, old.apellido, old.email, old.telefono, old.direccion, old.ci
 new.telefono, new.direccion, new.ciudad, new.codigo_postal, new.provincia, new.imagen, new.password, new.fecha_registro, current_user(), now());
 
 
-
+/*
 
 CREATE USER 'admin'@'localhost' IDENTIFIED BY '1234';
 GRANT ALL PRIVILEGES ON pasteleria.* TO 'admin'@'localhost';
@@ -184,7 +184,7 @@ GRANT select, insert ON pasteleria.* TO 'conexion'@'localhost';
 GRANT file on *.* to 'conexion'@'localhost';
 flush privileges;
 
-
+*/
 
 
 

@@ -57,18 +57,10 @@ if (isset($_GET['codOrder'])) {
 
                         if ($_GET['codOrder'] == $value[0]) {
 
-                            if ($value[5] == '1') {
-
-                                $estado = "Pendiente de confimación";
-                            } else {
-
-                                $estado = "Confimado";
-                            }
-
+                       
                             echo '<div class="windowOrder">'
                             . '<div class="cont_order"><label class="labelOrder">Número de pedido:</label> #' . $value[0] . '</div>'
                             . '<div class="cont_order"><label class="labelOrder">Fecha de pedido:</label> ' . $value[4] . '</div>'
-                            . '<div class="cont_order"><label class="labelOrder">Estado del pedido:</label> ' . $estado . '</div>'
                             . '<table class="table table-sm">'
                             . '<thead>'
                             . '<tr>'
@@ -82,7 +74,11 @@ if (isset($_GET['codOrder'])) {
 
                             $arrayOrder = [];
                             $arrayKeys = [];
-                            $cont = 0;
+                            $totalCantidad = 0;
+                            $arrayPrices = [];
+                            
+                            $totalCantidad = $value[5] * $value[3];
+                           
 
                             array_push($arrayOrder, $order[$_GET['codOrder']]);
 
@@ -96,12 +92,14 @@ if (isset($_GET['codOrder'])) {
 
                                 '<tbody>'
                                 . '<tr>'
-                                . '<th scope="row">' . $v[1] . '</th>'
-                                . '<td>x1</td>'
-                                . '<td>' . $v[2] . '</td>'
-                                . '<td>' . $v[3] . '</td>'
-                                . '<td></td>'
+                                . '<th scope="row">' . $value[1] . '</th>'
+                                . '<td>x '.$value[5].'</td>'
+                                . '<td>' . $value[2] . '</td>'
+                                . '<td>' . $value[3] . ' €</td>'
+                                . '<td>'.$totalCantidad.' €</td>'
                                 . '</tr>';
+                                array_push($arrayPrices, $totalCantidad);
+                               
 
                                 foreach ($v as $p) {
 
@@ -110,32 +108,28 @@ if (isset($_GET['codOrder'])) {
 
                                         array_push($arrayKeys, $p[1]);
 
-                                        $valores = array_count_values($arrayKeys);
-
-                                        foreach ($valores as $y => $x) {
-                                            
-                                        }
-
-                                        echo '<tr>'
+                                         $totalCantidad2 = $p[5] * $p[3];
+                                        
+                                      echo '<tr>'
                                         . '<th scope="row">' . $p[1] . '</th>'
-                                        . '<td>x' . $x . '</td>'
+                                        . '<td>x ' . $p[5] . '</td>'
                                         . '<td>' . $p[2] . '</td>'
-                                        . '<td>' . $p[3] . '</td>'
-                                        . '<td></td>'
+                                        . '<td>' . $p[3] . ' €</td>'
+                                        . '<td>'.$totalCantidad2.' €</td>'
                                         . '</tr>';
-                                        
-                                        
+                                        array_push($arrayPrices, $totalCantidad2);
+                                       
                                     }
                                 }
+                       
+                                 echo  '<tr>'
+                                              . '<td></td>'
+                                               . '<td></td>'
+                                               . '<td></td>'
+                                               . '<td style="color:red;font-weight:bold;">TOTAL</td>'
+                                               . '<td style="color:red;font-weight:bold;">'. array_sum($arrayPrices).'€</td>'
+                                         .'</tr>';
                             }
-
-                            echo "<pre>";
-                            print_r($arrayKeys);
-                            echo "</pre>";
-                            
-                              echo "<pre>";
-                            print_r($valores);
-                            echo "</pre>";
 
                             echo '</tbody>'
                             . '</table>'

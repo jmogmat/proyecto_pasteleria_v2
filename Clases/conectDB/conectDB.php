@@ -1508,7 +1508,7 @@ class conectDB {
 
     function getOrdersUser($idUser) {
 
-        $sql = 'select pc.id, pp.producto, p.nombre, p.precio, pc.fecha_pedido, pc.estado from Pedidos_Clientes as pc inner join Pedidos_Productos as pp on pp.pedido = pc.id inner join Productos as p on p.id = pp.producto where pc.cliente = ?';
+        $sql = 'select pc.id, pp.producto, p.nombre, p.precio, pc.fecha_pedido, pp.cantidad from Pedidos_Clientes as pc inner join Pedidos_Productos as pp on pp.pedido = pc.id inner join Productos as p on p.id = pp.producto where pc.cliente = ? order by pc.fecha_pedido DESC';
         $db = $this->pdo;
 
         $orders = [];
