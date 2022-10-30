@@ -15,56 +15,14 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: rgb(241,237,226);
 
 }
 
-.body_index {
+.body_index, .body_panaderia, .body_pasteleria,.body_blog, .body_contacto, .body_productsCategories, .body_login, .body_adminPage, .body_orders , .body_divUserAdminpage, .body_activeUsers, .body_usersDeleted, .body_userStandarPage  {
     background-color: rgb(241,237,226);
 }
 
-.body_panaderia, .body_pasteleria {
-    background-color: rgb(241,237,226);
-}
-
-.body_blog {
-    background-color: rgb(241,237,226);
-}
-
-.body_contacto {
-    background-color: rgb(241,237,226);
-}
-
-.body_productsCategories {
-    background-color: rgb(241,237,226);
-}
-
-.body_login {
-    background-color: rgb(241,237,226);
-}
-
-.body_adminPage {
-    background-color: rgb(241,237,226); 
-}
-
-.body_orders {
-    background-color: rgb(241,237,226); 
-}
-
-.body_divUserAdminpage {
-    background-color: rgb(241,237,226); 
-}
-
-.body_activeUsers {
-    background-color: rgb(241,237,226); 
-}
-
-.body_usersDeleted {
-    background-color: rgb(241,237,226); 
-}
-
-.body_userStandarPage {
-    background-color: rgb(241,237,226); 
-}
 /*Estilo del header */
 
 .header {
@@ -153,19 +111,6 @@ body {
 
 }
 
-@media (max-width:1948px){
-
-    .nav {
-        background-color: rgb(231,232,227);
-
-    }
-    
-    .panelLateral {
-        background-color: rgb(45,87,44);
-    }
-
-
-}
 
 @media (max-width: 1532px){
 
@@ -562,19 +507,18 @@ input {
 
 /*Estilo pagina de usuario*/
 
+
 .user_nav:hover{
     background-color: rgba(10,10,10,0.2);
     transition: background-color 0.1;
     color: white;
+    cursor:pointer;
 }
 
 .img_user_profile, .img_user_default {
-    width: 240px; 
-    height: 240px;
-    border-radius: 120px;
-    border: 5px solid white;
-    box-shadow: inset 0 0 5px yellow, 0 0 25px yellow, 0 0 15px yellow;
 
+    width: 200px;
+    height: 200px;
 
 }
 
@@ -592,53 +536,30 @@ input {
 }
 
 .edit_text_list {
-    color: white;
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
-
+    color:#a29676;
 }
 
 
 .userStandarPage {
 
-    background-color: rgb(100,36,36);
+    background-image: url(../images/background-img.jpg);
+
 }
 
-
-
 .div_accountUser {
-    color: white;
+    color:#a29676;
     text-align: center; 
     justify-content: center; 
     align-items: center; 
     height: 150px;
-    border: 5px solid white;
-    width: 30%;
     border-radius: 60px;
-    box-shadow: inset 0 0 5px yellow, 0 0 5px yellow, 0 0 15px yellow;
-    background-color: rgb(45,87,44);
     display: flex;
-    margin: 7% auto;
-
 
 }
 
-.flicker1, .flicker2 {
-    font-size: 65px;
-    margin: 2%; 
-
-
-}
-
-.flicker1 {
-    animation: parpadeo 1s infinite backwards;
-}
-
-.flicker2 {
-    animation: parpadeo 1.5s infinite backwards;
-}
 
 .div_accountUser h2 {
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
+
     font-size: 80px;
     font-family: 'Dancing Script', cursive;
 
@@ -646,26 +567,26 @@ input {
 }
 
 .div_accountUser p {
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
+
     letter-spacing: 5px;
 
 }
 
 .userName {
-    color: white;
+    color:#a29676;
     text-align:center;
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
+
 
 
 }
 
 .fieldset_user_1 {  
-    border: 3px solid white;
-    box-shadow: inset 0 0 5px yellow, 0 0 5px yellow, 0 0 15px yellow;
-    background-color: rgb(45,87,44);
+
     cursor: pointer;
 
 }
+
+
 
 .fieldset_pedidos {  
 
@@ -676,9 +597,7 @@ input {
 }
 
 .user_panel {
-    border: 3px solid white;
-    box-shadow: inset 0 0 5px yellow, 0 0 5px yellow, 0 0 15px yellow;
-    background-color: rgb(45,87,44);
+
     padding: 2%;
     margin: 1%;
     height: 50%;
@@ -688,74 +607,99 @@ input {
 
 .p_helloUser {
 
-    text-align: center;
-    color: white;
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
-}
-
-
-.text_user_panel {
-    margin-top: 1%;
+    font-size: 1.35em;
+    color:#a29676;
 
 }
 
-.boton_user_panel {
-    color: orange;
-}
-
-
-
-@keyframes parpadeo {
-
-    to {
-        color: gray;
-        text-shadow: none;
-    }
-}
 
 .link_order {
-     color: white;
-    text-shadow: 0 0 2px orange, 0 0 5px orange, 0 0 10px orange, 0 0 20px orange;
+    color: white;
     text-decoration: none;
-    margin-top: 5%;
-    
 }
 
-.div_link_order {
-    display: flex;
-    justify-content: center;
-    height: 50px;
-    background-color: rgb(45,87,44);
-    border-radius: 8px;
-   
-    
-    
-    
+.link_order:hover {
+    color: orange;
+
 }
+
 
 #addressBilling {
-    color: white;
-    text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 30px orange;
+    color:#a29676;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
 }
+
+
 
 
 .windowOrder {
-    display: flex;
-    width: 50%;;
+    width: 50%;
     height: 50%;
-    background-color: whitesmoke;
-    margin: 0 auto;
-    border-radius: 30px;
-    margin-bottom: 10%;
+    background-color: rgba(255,255,255,0.9); 
+    margin-bottom: 20%;
+    color: #a29676;
     padding: 18px;
-    flex-direction: column;
-   
-    
-    
+
+
 }
 
 .labelOrder {
     font-weight: bold;
+}
+
+.menuLateralUser{
+
+    width: auto;
+    margin: 12%;
+    background-color: rgba(0,0,0,0.7); 
+
+
+
+
+
+}
+
+.bPanelUser {
+    transition: background-color 0.1;
+    color:whitesmoke;
+    background-color: rgb(220,157,0);
+    border: 1px;
+    border-radius: 8px;
+    height: 80px;
+    margin: 1%;
+
+}
+
+
+.bPanelUser:hover {
+    color: white;
+    background-color: rgba(10,10,10,0.2);
+}
+
+.asidePanelUser {
+
+    background-color: rgba(0,0,0,0.7);
+
+}
+
+
+@media screen and (max-width: 500px) {
+    .tableOrders {
+        display: block;
+        overflow-x: auto;
+    }
+
+}
+
+@media screen and (max-width: 1460px) {
+    .tableDetailsOrder{
+        display: block;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
 }
 
 

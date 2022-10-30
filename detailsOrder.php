@@ -32,119 +32,113 @@ if (isset($_GET['codOrder'])) {
             ?>
             <body class="body_userStandarPage">
                 <div class="userStandarPage">
-                    <div style="flex-direction: column;">
-                        <div>
-                            <?php
-                            require_once 'header.php';
-                            ?>
-                        </div>
 
-                    </div> 
-
-                    <div class="div_accountUser">         
-                        <p class="flicker1">&#x2618</p>
-                        <div>
-                            <h2>Mi cuenta</h2>
-                            <p>+DETALLES DE LA CUENTA+</p>
-                        </div>
-                        <p class="flicker2">&#x2618</p>
+                    <div>
+                        <?php
+                        require_once 'header.php';
+                        ?>
                     </div>
 
-                    <?php
-                    foreach ($order as $key => $value) {
+                    <div class="menuLateralUser rounded-3 p-5">
+
+                        <h2 class="text-center"style="color: #a29676;">Detalles del pedido</h2>
+
+
+                        <?php
+                        foreach ($order as $key => $value) {
 
 
 
-                        if ($_GET['codOrder'] == $value[0]) {
+                            if ($_GET['codOrder'] == $value[0]) {
 
-                       
-                            echo '<div class="windowOrder">'
-                            . '<div class="cont_order"><label class="labelOrder">Número de pedido:</label> #' . $value[0] . '</div>'
-                            . '<div class="cont_order"><label class="labelOrder">Fecha de pedido:</label> ' . $value[4] . '</div>'
-                            . '<table class="table table-sm">'
-                            . '<thead>'
-                            . '<tr>'
-                            . '<th scope="col">Cod producto</th>'
-                            . '<th scope="col">Cantidad</th>'
-                            . '<th scope="col">Descripción</th>'
-                            . '<th scope="col">Precio unidad</th>'
-                            . '<th scope="col">Precio total</th>'
-                            . '</tr>'
-                            . '</thead>';
 
-                            $arrayOrder = [];
-                            $arrayKeys = [];
-                            $totalCantidad = 0;
-                            $arrayPrices = [];
-                            
-                            $totalCantidad = $value[5] * $value[3];
-                           
-
-                            array_push($arrayOrder, $order[$_GET['codOrder']]);
-
-                            $claves = array_keys($arrayOrder);
-
-                            foreach ($arrayOrder as $v) {
-
-                                array_push($arrayKeys, $v[1]);
-
-                                echo
-
-                                '<tbody>'
+                                echo '<div class="windowOrder rounded-3 m-auto w-50">'
+                                . '<label class="labelOrder">Número de pedido:</label> #' . $value[0] . '<br>'
+                                . '<label class="labelOrder">Fecha de pedido:</label> ' . $value[4]
+                                . '<table class="tableDetailsOrder table table-responsive table-bordered w-100 m-auto table-sm" style="color:#a29676;border: 2px solid #a29676;">'
+                                . '<thead>'
                                 . '<tr>'
-                                . '<th scope="row">' . $value[1] . '</th>'
-                                . '<td>x '.$value[5].'</td>'
-                                . '<td>' . $value[2] . '</td>'
-                                . '<td>' . $value[3] . ' €</td>'
-                                . '<td>'.$totalCantidad.' €</td>'
-                                . '</tr>';
-                                array_push($arrayPrices, $totalCantidad);
-                               
+                                . '<th scope="col">Cod producto</th>'
+                                . '<th scope="col">Cantidad</th>'
+                                . '<th scope="col">Descripción</th>'
+                                . '<th scope="col">Precio unidad</th>'
+                                . '<th scope="col">Precio total</th>'
+                                . '</tr>'
+                                . '</thead>';
 
-                                foreach ($v as $p) {
+                                $arrayOrder = [];
+                                $arrayKeys = [];
+                                $totalCantidad = 0;
+                                $arrayPrices = [];
+
+                                $totalCantidad = $value[5] * $value[3];
+
+                                array_push($arrayOrder, $order[$_GET['codOrder']]);
+
+                                $claves = array_keys($arrayOrder);
+
+                                foreach ($arrayOrder as $v) {
+
+                                    array_push($arrayKeys, $v[1]);
+
+                                    echo
+
+                                    '<tbody>'
+                                    . '<tr>'
+                                    . '<th scope="row">' . $value[1] . '</th>'
+                                    . '<td>x ' . $value[5] . '</td>'
+                                    . '<td>' . $value[2] . '</td>'
+                                    . '<td>' . $value[3] . ' €</td>'
+                                    . '<td>' . $totalCantidad . ' €</td>'
+                                    . '</tr>';
+                                    array_push($arrayPrices, $totalCantidad);
+
+                                    foreach ($v as $p) {
 
 
-                                    if (is_array($p)) {
+                                        if (is_array($p)) {
 
-                                        array_push($arrayKeys, $p[1]);
+                                            array_push($arrayKeys, $p[1]);
 
-                                         $totalCantidad2 = $p[5] * $p[3];
-                                        
-                                      echo '<tr>'
-                                        . '<th scope="row">' . $p[1] . '</th>'
-                                        . '<td>x ' . $p[5] . '</td>'
-                                        . '<td>' . $p[2] . '</td>'
-                                        . '<td>' . $p[3] . ' €</td>'
-                                        . '<td>'.$totalCantidad2.' €</td>'
-                                        . '</tr>';
-                                        array_push($arrayPrices, $totalCantidad2);
-                                       
+                                            $totalCantidad2 = $p[5] * $p[3];
+
+                                            echo '<tr>'
+                                            . '<th scope="row">' . $p[1] . '</th>'
+                                            . '<td>x ' . $p[5] . '</td>'
+                                            . '<td>' . $p[2] . '</td>'
+                                            . '<td>' . $p[3] . ' €</td>'
+                                            . '<td>' . $totalCantidad2 . ' €</td>'
+                                            . '</tr>';
+                                            array_push($arrayPrices, $totalCantidad2);
+                                        }
                                     }
-                                }
-                       
-                                 echo  '<tr>'
-                                              . '<td></td>'
-                                               . '<td></td>'
-                                               . '<td></td>'
-                                               . '<td style="color:red;font-weight:bold;">TOTAL</td>'
-                                               . '<td style="color:red;font-weight:bold;">'. array_sum($arrayPrices).'€</td>'
-                                         .'</tr>';
-                            }
 
-                            echo '</tbody>'
-                            . '</table>'
-                            . '</div>';
+                                    echo '<tr>'
+                                    . '<td></td>'
+                                    . '<td></td>'
+                                    . '<td></td>'
+                                    . '<td style="color:red;font-weight:bold;">TOTAL</td>'
+                                    . '<td style="color:red;font-weight:bold;">' . array_sum($arrayPrices) . '€</td>'
+                                    . '</tr>';
+                                }
+
+                                echo '</tbody>'
+                                . '</table>'
+                                . '</div>';
+                            }
                         }
                     }
-                }
-            } else {
+                } else {
 
-                //poner aqui una pagina de error 404 personalizada
-            }
-            ?>
-            <?php
-            require_once 'footer.php';
-            ?>
+                    //poner aqui una pagina de error 404 personalizada
+                }
+                ?>
+                        <div class="text-center mt-3"><button class="btn btn-primary m-auto w-50" onclick="returnListOrders();">Regresar al listado</button></div>
+            </div>
+                <?php
+                require_once 'footer.php';
+                ?>
+
         </div>
 
 
@@ -161,6 +155,7 @@ if (isset($_GET['codOrder'])) {
         <script src="js/deleteImgUser.js"></script>
         <script src="js/deleteAccountUser.js"></script>
         <script src="js/index.js"></script>
+        
 
     </body>
 </html>

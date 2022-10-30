@@ -21,98 +21,62 @@ $userData = $db->getUserData($user_id);
     require_once 'head.php';
     ?>
     <body class="body_userStandarPage">
+        
         <div class="userStandarPage">
-            <div style="flex-direction: column;">
-                <div>
+
+            <?php
+            require_once 'header.php';
+            ?>
+             
+            <div class="wrapper menuLateralUser rounded-3 p-3">
                     <?php
-                    require_once 'header.php';
+                $imgUsuario = $db->getImgUser($user_id); //Obtenemos la ruta completa donde se encuentra el fichero
+
+                $extension = pathinfo($imgUsuario, PATHINFO_EXTENSION); //Obtenemos la extensión del fichero
+
+                $imagen = 'imgUsers/codigoUsuario_' . $user_id . '/' . $user_id . '.' . $extension; //Creamos la ruta concatenando los valores para poder ponerlos en el atributo src de la imagen del usuario
+
+                if ($imgUsuario == "") {
                     ?>
-                </div>
 
-            </div> 
-
-            <div class="div_accountUser">         
-                <p class="flicker1">&#x2618</p>
-                <div>
-                    <h2>Mi cuenta</h2>
-                    <p>+DETALLES DE LA CUENTA+</p>
-                </div>
-                <p class="flicker2">&#x2618</p>
-            </div>
-            <div class="container" style="margin-top: 2%;">
-                <div class="row row-cols-2">
-                    <div class="col-3">
-                        <div id="img_user">
-
-                            <?php
-                            $imgUsuario = $db->getImgUser($user_id); //Obtenemos la ruta completa donde se encuentra el fichero
-
-                            $extension = pathinfo($imgUsuario, PATHINFO_EXTENSION); //Obtenemos la extensión del fichero
-
-                            $imagen = 'imgUsers/codigoUsuario_' . $user_id . '/' . $user_id . '.' . $extension; //Creamos la ruta concatenando los valores para poder ponerlos en el atributo src de la imagen del usuario
-
-                            if ($imgUsuario == "") {
-                                ?>
-                                <div class="account-user circle">
-                                    <span class="image mr-half inline-block" style="text-align: center">
-                                        <div><object type="image/svg+xml" data="imgUsers//avatar.svg">
-                                                <img class="img_user_default" src="/img_users/avatar.svg"></img>
-                                            </object>
-                                        </div>
-                                    </span>
-                                </div></div>
-                            <?php
-                        } else {
-                            ?>
-
-                            <div class="account-user circle">
-                                <span class="image mr-half inline-block" style="text-align: center">
-                                    <div>
-                                        <img class="img_user_profile" id="imgUsuario" src="<?php echo $imagen; ?>"  alt="imagen_de_usuario"></img>
-
-                                    </div>
-                                </span>
-                            </div></div><br>
-
-                    <?php } ?>
-
-
-                    <div id="nav_user"> 
-                        <div class="row vertical-tabs" style="display: flex; margin-bottom: 8%;">
-                            <div class="large-3 col-border">
-                                <div class="">
-                                    <?php
-                                    echo '<div class="userName"><h3>' . $userData['nombre'] . " " . $userData['apellido'] . '</h3></div>';
-                                    ?>
-                                </div>
-                            </div>                        
-                            <div>
-                                <fieldset class="fieldset_user_1">
-                                    <div class="nav flex-column nav-pills panelLateral" role="tablist" aria-orientation="vertical">
-                                        <a class="user_nav nav-link edit_text_list" id="escritorio" role="tab" onclick="dashboardProfileUser()">Escritorio</a>
-                                        <a class="user_nav nav-link edit_text_list" id="cuenta" role="tab" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</a>
-                                        <a class="user_nav nav-link edit_text_list" id="pedidos"  role="tab" onclick="ordersUser()">Pedidos</a>
-                                        <a class="user_nav nav-link edit_text_list" id="direccion"  role="tab"  onclick="event.preventDefault();addressBilling()">Dirección</a>
-                                        <a class="user_nav nav-link edit_text_list" id="borrar_imagen"  role="tab" onclick="deleteImgUser()">Eliminar imagen de perfil</a>
-                                        <input type="text" id="idUsuario" value="<?php echo $user_id; ?>" style="display:none">
-                                        <a class="user_nav nav-link edit_text_list" id="eliminar_cuenta"  role="tab" onclick="deleteAccountUser()">Eliminar cuenta</a>
-                                    </div>
-                                </fieldset>
-                            </div>
+                    <span class="d-flex image mr-half inline-block justify-content-center">
+                        <div>
+                            <object type="image/svg+xml" data="imgUsers//avatar.svg">
+                                <img class="img_user_default img-fluid rounded-circle" src="/img_users/avatar.svg" alt="imagen_de_usuario"></img>
+                            </object>
                         </div>
-                    </div>
-                </div>
-                <div class="user_panel">    
+                    </span>
+
+
+                    <?php
+                } else {
+                    ?>        
+                    <span class="d-flex image inline-block justify-content-center" >
+                        <div class="">
+                            <img class="img_user_profile img-fluid rounded-circle p-3" id="imgUsuario" src="<?php echo $imagen; ?>"  alt="imagen_de_usuario" ></img>
+                        </div>
+                    </span>          
+                    <br>
+
+                <?php } ?>
+
+                <?php
+                echo '<div class="userName"><h1>Bienvenido/a</h1><h3>' . $userData['nombre'] . " " . $userData['apellido'] . '</h3></div>';
+                ?>
+                    <div class="d-flex w-100" id="textWellcomePanelUser" style="display: inline">
+                        <p class="text-center p_helloUser m-5" id="p_helloUser" style="display: inline">Hola <?php echo '<b>' . $userData['nombre'] . " " . $userData['apellido'] . '</b>' ?>! Desde el escritorio de tu cuenta puedes ver tus pedidos recientes, gestionar tus direcciones de envío y facturación, editar tu contraseña y los detalles de tu cuenta.</p>                             
+                </div>  
                     <div id="contenido">
-                        <fieldset class="fieldset_user_2">
-                            <div class="text_user_panel"id="dashboardUser">
-                                <p class="p_helloUser">Hola <?php echo '<b>' . $userData['nombre'] . " " . $userData['apellido'] . '</b>' ?>! Desde el escritorio de tu cuenta puedes ver tus pedidos recientes, gestionar tus direcciones de envío y facturación, editar tu contraseña y los detalles de tu cuenta.</p>
-                                <div class="row justify-content-around">                               
-                                    <button id="btn2"  class="btn btn-outline-light btn-xs col-2 text-warning" data-bs-toggle="modal" data-bs-target="#modal1">Editar cuenta</button>
-                                    <button id="btn3"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="ordersUser()">Pedidos</button> 
-                                    <button id="btn4"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="addressBilling()">Dirección</button>
-                                    <button id="btn4"  class="btn btn-outline-light btn-xs col-2 text-warning" onclick="logout()">Salir</button>
-                                </div>
+                        <fieldset>
+                            <div id="dashboardUser" class="d-flex justify-content-center flex-wrap">
+                                    <button id="btn1"  class="bPanelUser col-xxl-2 col-xl-2 col-md-3 col-sm-3 col-10" id="escritorio" onclick="dashboardProfileUser()"><i class="bi bi-laptop"><br></i>Escritorio</button>                    
+                                    <button id="btn2"  class="bPanelUser col-xxl-2 col-xl-2 col-md-3 col-sm-3 col-10" data-bs-toggle="modal" data-bs-target="#modal1" ><i class="bi bi-pencil"><br></i>Editar cuenta</button>
+                                    <button id="btn3"  class="bPanelUser col-xxl-2 col-xl-2 col-md-3 col-sm-3 col-10" onclick="event.preventDefault();ordersUser()"><i class="iconosUser bi bi-bag-heart"><br></i>Pedidos</button> 
+                                    <button id="btn4"  class="bPanelUser col-xxl-2 col-xl-2 col-md-3 col-sm-3 col-10" onclick="addressBilling()"><i class="bi bi-geo-alt"><br></i>Dirección</button>
+                                    <button id="btn5"  class="bPanelUser col-xxl-2 col-xl-2 col-md-3 col-sm-3 col-10" onclick="deleteImgUser()"></i><i class="bi bi-trash"></i><br>Eliminar imagen de perfil</button>
+                                    <button id="btn6"  class="bPanelUser col-xxl-2 col-xl-2 col-md-3 col-sm-3 col-10" onclick="deleteAccountUser()"></i><i class="bi bi-person-x"></i><br>Eliminar cuenta</button>
+                                    <button id="btn7"  class="bPanelUser col-xxl-2 col-xl-2 col-md-3 col-sm-3 col-10" onclick="logout()"><i class="bi bi-box-arrow-right"><br></i>Salir</button>
+                               
                             </div>
                         </fieldset>
 
@@ -171,16 +135,15 @@ $userData = $db->getUserData($user_id);
                     </div>
 
                     <div id="usersOrders" style="display: none"></div>
-
                     <div id="addressBilling" style="display: none">
                         <label>Las siguientes direcciones se utilizarán por defecto en la página de pago.</label><br><br>
-                        <div>
+                        <address>
                             <label style="font-weight: bold">Dirección de facturación y envio</label><br><br>
                             <a id="a_billing" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal2">Editar</a>
                             <p style="margin-top: 2%;"><?php echo '<i>' . $userData['nombre'] . " " . $userData['apellido'] . '</i>'; ?></p>
                             <p><?php echo '<i>' . $userData['direccion'] . " CP: " . $userData['codigo_postal'] . " " . $userData['ciudad'] . '</i>'; ?></p>
                             <p><?php echo '<i>' . $userData['provincia'] . '</i>'; ?></p>
-                        </div>
+                        </address>
                     </div>
 
                     <div id="editAddressUser" class="container">
@@ -224,62 +187,32 @@ $userData = $db->getUserData($user_id);
                         </div>
                     </div>
 
-                    <div id="orders" style="display: none;">
-                        <table class="table table-bordered" id="tabla_pedido" style="background-color: whitesmoke">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Fecha pedido</th>
-                                    <th scope="col">Código del pedido</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $orders = $db->getOrdersUser($user_id);
+            </div>
 
-                                if (!empty($orders)) {
 
-                                    foreach ($orders as $key => $value) {
-                                        ?>                          
-                                        <tr>
-                                            <td><?php echo substr($value[4], 0, -8); ?></td>                                 
-                                            <td>#<?php echo $value[0]; ?></td>
-                                            <td><div class="div_link_order"><a class="link_order" href='detailsOrder.php?codOrder=<?php echo $value[0];?>'>Ver detalle del pedido</a></div></td>
-                                        </tr>
-                                        
-                                        <?php
-                                    }
-                                } else {
-                                    
-                                   //Meter un alert por aquí
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                </div>
 
-            </div>            
+
+
+
+            <?php
+            require_once 'footer.php';
+            ?>
         </div>
-        <?php
-        require_once 'footer.php';
-        ?>
-    </div>
-    <!-- JavaScript Bundle with Popper.js -->
-    <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <!-- JavaScript Bundle with Popper.js -->
+        <script src="/css/bootstrap5/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="js/dashboardUser.js"></script>
-    <script src="js/updateAccountUser.js"></script>
-    <script src="js/responsive_header.js"></script>
-    <script src="js/updateAddressUser.js"></script>
-    <script src="js/deleteImgUser.js"></script>
-    <script src="js/deleteAccountUser.js"></script>
-    <script src="js/index.js"></script>
-    
-</body>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script src="js/dashboardUser.js"></script>
+        <script src="js/updateAccountUser.js"></script>
+        <script src="js/responsive_header.js"></script>
+        <script src="js/updateAddressUser.js"></script>
+        <script src="js/deleteImgUser.js"></script>
+        <script src="js/deleteAccountUser.js"></script>
+        <script src="js/index.js"></script>
+
+    </body>
 </html>
 
 

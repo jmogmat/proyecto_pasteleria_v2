@@ -47,7 +47,7 @@ $start = ($_GET['page'] - 1) * $productsByPage;
 
 
             <div style="flex-direction: column;">
-                <div style="">
+                <div>
                     <?php
                     require_once 'header.php';
                     ?>
