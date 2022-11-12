@@ -9,6 +9,8 @@ function dashboardProfileUser() {
 function addressBilling() {
     document.getElementById('addressBilling').style.display = 'inline';
     document.getElementById('dashboardUser').style.display = 'none';
+    document.getElementById('p_helloUser').style.display = "none";
+    document.getElementById('textWellcomePanelUser').style.display = "none";
 
 }
 

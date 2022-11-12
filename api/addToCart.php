@@ -42,7 +42,7 @@ if (isset($_SESSION['carrito'])) {
 
                             if ($id === $valor['id']) {
 
-                                $totalCantidad = $valor['cantidad'] + 1;
+                                $totalCantidad = $valor['cantidad'] + $cantidad;
 
                                 $_SESSION['carrito'][$key] = array('id' => $id, 'nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'cantidad' => $totalCantidad);
 

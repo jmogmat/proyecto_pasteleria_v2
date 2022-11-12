@@ -40,8 +40,37 @@ if (isset($_GET['codOrder'])) {
                     </div>
 
                     <div class="menuLateralUser rounded-3 p-5">
+                        
+                         <?php
+                $imgUsuario = $db->getImgUser($user_id); //Obtenemos la ruta completa donde se encuentra el fichero
 
-                        <h2 class="text-center"style="color: #a29676;">Detalles del pedido</h2>
+                $extension = pathinfo($imgUsuario, PATHINFO_EXTENSION); //Obtenemos la extensión del fichero
+
+                $imagen = 'imgUsers/codigoUsuario_' . $user_id . '/' . $user_id . '.' . $extension; //Creamos la ruta concatenando los valores para poder ponerlos en el atributo src de la imagen del usuario
+
+                if ($imgUsuario == "") {
+                    ?>
+
+                  <span class="d-flex image inline-block justify-content-center">
+                        <div>
+                            <img class="img_user_default img-fluid rounded-circle p-3" src="imgUsers/user_icon.png" alt="icono_de_usuario"></img>                      
+                        </div>
+                    </span>
+
+
+                    <?php
+                } else {
+                    ?>        
+                    <span class="d-flex image inline-block justify-content-center" >
+                        <div>
+                            <img class="img_user_profile img-fluid rounded-circle p-3" id="imgUsuario" src="<?php echo $imagen; ?>"  alt="imagen_de_usuario" ></img>
+                        </div>
+                    </span>          
+                    <br>
+
+                <?php } ?>
+
+                        <h2 class="text-center"style="color: #a29676;"><i class="bi bi-info-circle"></i> Detalles del pedido</h2>
 
 
                         <?php

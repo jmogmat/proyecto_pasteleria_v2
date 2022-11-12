@@ -15,14 +15,15 @@ $sesion->checkSession();
     require_once 'head.php';
     ?>
 
-    <body class="body_panaderia">
-        <div class="grid_products">
-            <div class="header_grid">
-                <?php
-                require_once 'header.php';
-                ?>
-            </div>
-            <h2 class="title_products">Productos de panadería</h2>
+    <body class="body_panaderia">    
+
+        <?php
+        require_once 'header.php';
+        ?>  
+        <h2 class="title_products" style="margin-top:8%">Productos de panadería</h2>
+
+        <div class="d-flex flex-wrap m-auto flex-content justify-content-center w-75">
+
             <?php
             $image = '';
 
@@ -42,23 +43,21 @@ $sesion->checkSession();
                         $image = 'images/imagenes_de_pan/' . $nameImg;
                         ?>
 
-                        <div class="products_cards shadow">                                                                                                                      
-                            <img class="img_product_card" src="<?php echo $image; ?>" alt="<?php echo $v['nombre']; ?>"></img>                                                                                           
+                        <div class="shadow flex-item text-center m-2 w-25 h-auto">                                                                                                                      
+                            <img class="img_product_card img-fluid" src="<?php echo $image; ?>" alt="<?php echo $v['nombre']; ?>"></img>                                                                                           
                             <form id="formCart<?php echo $v['id']; ?>" name="formCart">
                                 <input type="hidden" name="id" id="id" value="<?php echo $v['id']; ?>">
                                 <input type="hidden" name="nombre" id="nombre" value="<?php echo $v['nombre']; ?>">
-                                <input type="hidden" name="descripcion" id="descripcion" value="<?php echo $v['descripcion']; ?>">
+                                <input class="descripcion" type="hidden" name="descripcion" id="descripcion" value="<?php echo $v['descripcion']; ?>">
                                 <input type="hidden" name="precio" id="precio" value="<?php echo $v['precio']; ?>">
                                 <input type="hidden" name="stock" value="<?php echo $v['cantidad']; ?>">
-                                <div class="card-body" style="text-align: center">
-                                    <fieldset class="border p-2 rounded"">
-                                        <h5><?php echo $v['nombre']; ?></h5>
-                                        <p class=""><?php echo $v['descripcion']; ?></p>
-                                        <p class="" style="font-size: 20px; font-weight: bold;"><?php echo $v['precio']; ?> €</p>
-                                        <p class="" style="font-size: 15px;"><?php echo "En stock  ". $v['cantidad']; ?></p>
-                                        <label style="padding: 3%;">Introducir cantidad</label><input type="number" name="cantidad" style="width:15%;" min="1" max="<?php echo $v['cantidad']; ?>" onkeyup="this.value=checkInputAmount(this.value)"><br><br>
-                                        <button class="btn btn-primary" style="cursor:pointer; font-size: 15px;" onclick="event.preventDefault();addToCart(<?php echo $v['id']; ?>)"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
-                                    </fieldset>
+                                <div class="card-body">                      
+                                    <h5><?php echo $v['nombre']; ?></h5>
+                                    <p class=""><?php echo $v['descripcion']; ?></p>
+                                    <p class="" style="font-size: 20px; font-weight: bold;"><?php echo $v['precio']; ?> €</p>
+                                    <p class="" style="font-size: 15px;"><?php echo "En stock  " . $v['cantidad']; ?></p>
+                                    <label style="padding: 3%;">Introducir cantidad</label><input type="number" name="cantidad" style="width:15%;" min="1" max="<?php echo $v['cantidad']; ?>" onkeyup="this.value = checkInputAmount(this.value)"><br><br>
+                                    <button class="btn btn-primary" style="cursor:pointer; font-size: 15px;" onclick="event.preventDefault();addToCart(<?php echo $v['id']; ?>)"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>                                
                                 </div>
                             </form>
                         </div>
@@ -69,13 +68,13 @@ $sesion->checkSession();
             }
             ?>
 
-
-            <div class="footer_grid">
-                <?php
-                require_once 'footer.php';
-                ?>
-            </div>
         </div>
+        <div class="m-auto"style="width: 70%;">
+            <?php
+            require_once 'footer.php';
+            ?>
+        </div>
+
 
         <!-- JavaScript Bundle with Popper.js -->
         <script src="/css/bootstrap5/js/bootstrap.min.js"></script>

@@ -33,8 +33,8 @@ if(!isset($totalcantidad)){
 }
 
 ?>
-<header class="header" style="width: 70%;">
-    <nav class="nav">    
+<header class="header col align-self-center" style="width: 70%;">
+    <nav class="nav m-auto">    
             <a href="index.php"><img class="logo" src="images/logo.svg" alt="logo" /></a>
             <button class="nav-toggle" aria-label="Abrir menú"><i class="bi bi-list"></i></button>
             <ul class="nav-menu">

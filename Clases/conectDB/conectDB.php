@@ -1455,7 +1455,7 @@ class conectDB {
             if ($stmt = $db->prepare($sql)) {
 
                 $stmt->bindValue(1, $idClient);
-     
+
                 if ($stmt->execute()) {
 
                     if ($res = $db->prepare($sql3)) {
@@ -1474,27 +1474,26 @@ class conectDB {
             foreach ($products as $product) {
 
                 if ($result = $db->prepare($sql2)) {
-                    
-                    if($r = $db->prepare($sql4)){
-                        
+
+                    if ($r = $db->prepare($sql4)) {
+
                         $r->bindValue(1, $product['id']);
                         $r->execute();
                         $amountProduct = $r->fetch();
                     }
-                    
+
                     $totalAmount = $amountProduct[0] - $product['cantidad'];
 
                     $result->bindValue(1, $product['id']);
                     $result->bindValue(2, $idOrder[0]);
                     $result->bindValue(3, $product['cantidad']);
                     $result->execute();
-                    
-                    if($resul = $db->prepare($sql5)){
-                        
+
+                    if ($resul = $db->prepare($sql5)) {
+
                         $resul->bindValue(1, $totalAmount);
                         $resul->bindValue(2, $product['id']);
                         $resul->execute();
-                        
                     }
                 }
             }
@@ -1512,7 +1511,6 @@ class conectDB {
         $db = $this->pdo;
 
         $orders = [];
-        
 
         try {
             if ($stmt = $db->prepare($sql)) {
@@ -1521,17 +1519,15 @@ class conectDB {
                 $stmt->execute();
 
                 while ($row = $stmt->fetch()) {
-                    
-  
+
+
 
                     if (array_key_exists($row[0], $orders)) {
 
-                       $orders[$row[0]][] = $row;
-                        
-                        
+                        $orders[$row[0]][] = $row;
                     } else {
 
-                      $orders[$row[0]] = $row;
+                        $orders[$row[0]] = $row;
                     }
                 }
             }
@@ -1581,12 +1577,36 @@ class conectDB {
             echo $ex->getMessage();
         }
     }
-    
-    
-    function getAmountProduct(){
+
+    function checkBillingData($userId) {
+
+        $query = 'select * from usuarios where id = ?';
+
+        $db = $this->pdo;
         
-         $sql = "select cantidad  from Productos";
-        
+        $result = false;
+
+        try {
+            
+            if($stmt = $db->prepare($query)){
+                 $stmt->bindValue(1, $userId);
+                  $stmt->execute();
+                   $row = $stmt->fetch();
+                   
+                   if(empty($row['telefono']) || $row['telefono'] === "" || empty($row['direccion']) || $row['direccion'] === "" || empty($row['ciudad']) || $row['ciudad'] === "" || empty($row['codigo_postal']) || $row['codigo_postal'] === ""){
+                       
+                       $result = true;
+                   } else {
+                       $result = false;
+                   }
+                  
+            }
+            
+            return $result;
+            
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
 
 }

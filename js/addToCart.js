@@ -1,9 +1,7 @@
 function addToCart(id) {
     
     let element = document.getElementById("formCart" + id);
-    
 
-   
     fetch('api/addToCart.php', {
         method: 'POST',
         body: new FormData(element)

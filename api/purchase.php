@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 require_once(__DIR__ . '/../autoload.php');
@@ -24,14 +25,20 @@ if (isset($_SESSION['carrito'])) {
 
             foreach ($client as $key => $v) {
 
-                if (!$db->userOrder($v, $_SESSION['carrito'])) {
-                    
-                     unset($_SESSION['carrito']);
-                     
-                    echo json_encode(['success' => '202']);
-                    return;
+                if (!$db->checkBillingData($v)) { //Comprueba que los datos de facturación no están vacios
+
+                    if (!$db->userOrder($v, $_SESSION['carrito'])) {
+
+                        unset($_SESSION['carrito']);
+
+                        echo json_encode(['success' => '202']);
+                        return;
+                    } else {
+                        echo json_encode(['error' => '402', 'msg' => 'No se ha podido realizar el pedido']);
+                        return;
+                    }
                 } else {
-                    echo json_encode(['error' => '402', 'msg' => 'No se ha podido realizar el pedido']);
+                    echo json_encode(['error' => '402', 'msg' => 'Completa tus datos de facturación!']);
                     return;
                 }
             }

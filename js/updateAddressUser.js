@@ -1,6 +1,6 @@
 
 function updateAddressUser() {
-    console.log('hola')
+   
     fetch('api/updateAddressUser.php', {
         method: 'POST',
         body: new FormData(document.getElementById("form_edit_address"))

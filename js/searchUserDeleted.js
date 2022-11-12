@@ -1,7 +1,5 @@
 
 function searchUserDeleted() {
-    
-    console.log('hole')
 
     var userD = document.getElementById('userDeleted').value;
 

@@ -33,10 +33,6 @@ function searchUpdateByDate() {
 
                         console.log(updates)
                         
-                     
-                            
-                 
-
 
                         document.getElementById('table_users_updates').style.display = "none";
 
