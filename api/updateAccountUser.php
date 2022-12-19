@@ -29,7 +29,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && !$tool->isUserAnonimous($_SESSION[
     $ruteImgUser = $dataUser['imagen'];
 
     $currentRute = __DIR__;
-    $ruteFileUser = 'imgUsers\codigoUsuario_' . $id;
+    $ruteFileUser = DIRECTORY_SEPARATOR . 'imgUsers/codigoUsuario_' . $id;
     $ruteModify = str_replace('api', $ruteFileUser, $currentRute);
 
     if ($_POST['currentPWD'] != "" && $_POST['newPWD'] != "" && $_POST['newPWD2'] != "") {

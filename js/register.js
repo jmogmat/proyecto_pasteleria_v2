@@ -13,14 +13,14 @@ function registerUser() {
                     Swal.fire({
                         icon: 'success',
                         title: 'Bienvenido...',
-                        text: 'Su registro fue exitoso, verifique su cuenta de correo!',
+                        text: 'Su registro fue exitoso, verifique el SMS que se le ha enviado a su teléfono móvil!',
                         confirmButtonText:
                                 'Continuar'
 
                     }).then((result) => {
 
                         if (result.isConfirmed) {
-                            document.location.reload();
+                            location.href ="PhpProject1/login.php";
                         }
                     })
                     

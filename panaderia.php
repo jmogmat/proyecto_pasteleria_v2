@@ -19,10 +19,11 @@ $sesion->checkSession();
 
         <?php
         require_once 'header.php';
-        ?>  
+        ?>
+        <div class="mt-5"></div>  
         <h2 class="title_products" style="margin-top:8%">Productos de panadería</h2>
 
-        <div class="d-flex flex-wrap m-auto flex-content justify-content-center w-75">
+        <div class="d-flex flex-wrap m-auto flex-content justify-content-center w-75" id="containerCards">
 
             <?php
             $image = '';
@@ -43,7 +44,7 @@ $sesion->checkSession();
                         $image = 'images/imagenes_de_pan/' . $nameImg;
                         ?>
 
-                        <div class="shadow flex-item text-center m-2 w-25 h-auto">                                                                                                                      
+                        <div class="shadow flex-item text-center m-2 w-25 h-auto" id="cardProducts">                                                                                                                      
                             <img class="img_product_card img-fluid" src="<?php echo $image; ?>" alt="<?php echo $v['nombre']; ?>"></img>                                                                                           
                             <form id="formCart<?php echo $v['id']; ?>" name="formCart">
                                 <input type="hidden" name="id" id="id" value="<?php echo $v['id']; ?>">
@@ -56,7 +57,7 @@ $sesion->checkSession();
                                     <p class=""><?php echo $v['descripcion']; ?></p>
                                     <p class="" style="font-size: 20px; font-weight: bold;"><?php echo $v['precio']; ?> €</p>
                                     <p class="" style="font-size: 15px;"><?php echo "En stock  " . $v['cantidad']; ?></p>
-                                    <label style="padding: 3%;">Introducir cantidad</label><input type="number" name="cantidad" style="width:15%;" min="1" max="<?php echo $v['cantidad']; ?>" onkeyup="this.value = checkInputAmount(this.value)"><br><br>
+                                    <label style="padding: 3%;">Introducir cantidad</label><input type="number" name="cantidad" style="width:35%;" min="1" max="<?php echo $v['cantidad']; ?>" onkeyup="this.value = checkInputAmount(this.value)"><br><br>
                                     <button class="btn btn-primary" style="cursor:pointer; font-size: 15px;" onclick="event.preventDefault();addToCart(<?php echo $v['id']; ?>)"><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>                                
                                 </div>
                             </form>
@@ -84,6 +85,7 @@ $sesion->checkSession();
         <script src="js/addToCart.js"></script>
         <script src="js/index.js"></script>
         <script src="js/checkInputAmount.js"></script>
+        <script src="js/changeClass.js"></script>
 
     </body>
 

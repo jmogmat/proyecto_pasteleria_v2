@@ -32,7 +32,7 @@ class functions {
         return $pass;
     }
 
-    function validatePass(string $password, string $hash): string {
+    function validatePass(string $password, string $hash): bool {
 
         $encryptionPass = password_verify($password, $hash);
 
@@ -50,11 +50,11 @@ class functions {
 
     /**
      * Función que crea una sesion con el rol del usuario, el rol lo obtenemos de la variable que recibe como parametro, esta variable es un array con todos los datos del usuario.
-     * @param string $result
+     * @param Array $result
      */
     function saveSessionData($result) {
 
-       
+
         if (session_status() == PHP_SESSION_NONE) { // Comprobamos si NO tenemos una sessión activo
             session_start();
         }
@@ -66,22 +66,19 @@ class functions {
         $_SESSION['usuario'] = json_encode(new usuario($result['id'], $result['nombre'], $result['apellido'], $result['email'], $result['telefono'], $result['direccion'], $result['ciudad'], $result['codigo_postal'], $result['provincia'], "", $result['rol_usuario'], $result['estado']));
         $_SESSION['rol'] = $result['rol_usuario'];
 
-      
         // header("location:index.php");
     }
 
     function checkSession() {
-      
-        
+
+
         if (session_status() == PHP_SESSION_NONE) { // Comprobamos si NO tenemos una sessión activo
             session_start(); // Iniciamos o recuperamos la información de la sessión actual
 
 
             if (!isset($_SESSION['rol'])) { // Comprobamos si no existe un ROL asignado
                 $_SESSION['rol'] = '3'; // Asignamos el rol por defecto, 3 es el usuario de conexión
-            } 
-        
-            
+            }
         }
     }
 
@@ -114,7 +111,7 @@ class functions {
 
             if (!isset($_FILES['img']['error'])) {
 
-                throw new RuntimeException('Se produjo un error en el envío del fichero.');
+                throw new \RuntimeException('Se produjo un error en el envío del fichero.');
             }
 
             switch ($_FILES['img']['error']) {
@@ -122,13 +119,13 @@ class functions {
 
                 case UPLOAD_ERR_NO_FILE:
 
-                    throw new RuntimeException('No se recibió el archivo.');
-                default: throw new RuntimeException('Error desconocido.');
+                    throw new \RuntimeException('No se recibió el archivo.');
+                default: throw new \RuntimeException('Error desconocido.');
             }
 
             if ($_FILES['img']['size'] > 5000000) {
 
-                throw new RuntimeException('Tamaño del archivo demasiado grande.');
+                throw new \RuntimeException('Tamaño del archivo demasiado grande.');
             }
 
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -140,7 +137,7 @@ class functions {
             finfo_close($finfo);
 // Si no es una imagen, terminamos 
             if ($ext === false) {
-                throw new RuntimeException('Imagen non reconocida.');
+                throw new \RuntimeException('Imagen non reconocida.');
             }
 
 
@@ -148,20 +145,20 @@ class functions {
 
                 $res = move_uploaded_file($_FILES['img']['tmp_name'], __DIR__ . '/../../images/imagenes_de_pasteles/' . $_FILES['img']['name']);
                 if (!$res) {
-                    throw new RuntimeException('La imagen no pudo ser cambiada de directorio.');
+                    throw new \RuntimeException('La imagen no pudo ser cambiada de directorio.');
                 } else {
                     $ok = true;
                 }
             } else {
                 $res = move_uploaded_file($_FILES['img']['tmp_name'], __DIR__ . '/../../images/imagenes_de_pan/' . $_FILES['img']['name']);
                 if (!$res) {
-                    throw new RuntimeException('La imagen no pudo ser cambiada de directorio.');
+                    throw new \RuntimeException('La imagen no pudo ser cambiada de directorio.');
                 } else {
                     $ok = true;
                 }
             }
             return $ok;
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             echo $e->getMessage();
             return $ok;
         }
@@ -217,7 +214,7 @@ class functions {
 
             if (!isset($_FILES['user_img']['error'])) {
 
-                throw new RuntimeException('Se produjo un error en el envío del fichero.');
+                throw new \RuntimeException('Se produjo un error en el envío del fichero.');
             }
 
             switch ($_FILES['user_img']['error']) {
@@ -225,13 +222,13 @@ class functions {
 
                 case UPLOAD_ERR_NO_FILE:
 
-                    throw new RuntimeException('No se recibió el archivo.');
-                default: throw new RuntimeException('Error desconocido.');
+                    throw new \RuntimeException('No se recibió el archivo.');
+                default: throw new \RuntimeException('Error desconocido.');
             }
 
             if ($_FILES['user_img']['size'] > 5000000) {
 
-                throw new RuntimeException('Tamaño del archivo demasiado grande.');
+                throw new \RuntimeException('Tamaño del archivo demasiado grande.');
             }
 
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -242,7 +239,7 @@ class functions {
             finfo_close($finfo);
 
             if ($ext === false) {
-                throw new RuntimeException('Imagen no reconocida.');
+                throw new \RuntimeException('Imagen no reconocida.');
             }
 
             $extension = pathinfo($_FILES['user_img']['name'], PATHINFO_EXTENSION);
@@ -252,7 +249,7 @@ class functions {
             $res = move_uploaded_file($_FILES['user_img']['tmp_name'], $ruteFileUser . '\\' . $image);
 
             if (!$res) {
-                throw new RuntimeException('La imagen no pudo ser cambiada de directorio.');
+                throw new \RuntimeException('La imagen no pudo ser cambiada de directorio.');
                 return $false;
             } else {
 
@@ -260,11 +257,129 @@ class functions {
 
                 return $ruteImgUser;
             }
-        } catch (RuntimeException $e) {
+        } catch (\RuntimeException $e) {
             echo $e->getMessage();
         }
     }
 
-}
-?>
+    function sendToken($numPhone) {
+ 
+        define('SENDER','34621022958');
+        define('API_KEY', '111f7a1fef2a41829ac4123d9017f562');
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.gateway360.com/api/2fa/request',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_POSTFIELDS => '{
+             "api_key":"'.API_KEY.'",
+             "msisdn":"34'.$numPhone.'",
+             "sender":"'.SENDER.'",
+             "hlr_lookup":1,
+             "pin_params": [{
+             "length": 4,
+             "expires_in": 180,
+             "max_tries": 3
+              }]
+             }',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Cookie: PHPSESSID=ep16urm84mb7qb31uh8ql9p4a1'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+        
+    }
+
+        function verifyToken($token) {
+            
+           define('API_KEY', '111f7a1fef2a41829ac4123d9017f562');
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://api.gateway360.com/api/2fa/verify',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_POSTFIELDS => '{
+              "api_key":"'.API_KEY.'",
+              "msisdn":"34621022958",
+               "pin":"' . $token . '"
+             }',
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Cookie: PHPSESSID=ep16urm84mb7qb31uh8ql9p4a1'
+                ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            echo $response;
+        }
+        
+        
+        
+	function sendWhatsapp($numPhone){
+		
+		    $arrayDatos = [
+                     "messaging_product" => "whatsapp",
+                     "to" => "34" . $numPhone,
+                     "recipient_type" => "individual",
+                     "type" => "template",
+                     "template" => [
+                     "name" => "plantilladeprueba",
+                     "language" => [
+                     "code" => "es_ES",
+                     "policy" => "deterministic"
+         ]
+        ]];
+		
+            $datos = json_encode($arrayDatos);
+		
+	$curl = curl_init();
+		
+     curl_setopt_array($curl, array(
+     CURLOPT_URL => 'https://graph.facebook.com/v15.0/111886935075144/messages',
+     CURLOPT_RETURNTRANSFER => true,
+     CURLOPT_ENCODING => '',
+     CURLOPT_MAXREDIRS => 10,
+     CURLOPT_TIMEOUT => 0,
+     CURLOPT_FOLLOWLOCATION => true,
+     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+     CURLOPT_CUSTOMREQUEST => 'POST',
+     CURLOPT_POSTFIELDS => $datos,
+     CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer EAAQkhlyP3ZBABAAPvHYdueHXSUMVTOnk6b8uJii3h3MWkC79zgDH8NtaKCd7oOjqM2G5Orn56ubbOaiwNEPvsZBy9fGl6aT9g7ngZCDQErVMmGEfeQ7zZByQJwvxwcVs5yZCoLXhK0Vwl4YhDd3BiJH0fFZAmddEZAcZBbgZBuHC0kd8Jm6WOzds9',
+    'Content-Type: application/json'
+  ),
+));
+
+   $response = curl_exec($curl);
+
+   curl_close($curl);
+		
+	return $response;
+
+} 
+
+    }
+
+    ?>
 

@@ -16,7 +16,6 @@
                                             $total = 0;
                                             $myCart = $_SESSION['carrito'];
                                             
-
                                             for ($i = 0; $i <= count($myCart) - 1; $i++) {
                                                 if (isset($myCart[$i])) {
                                                     if ($myCart[$i] != NULL) {

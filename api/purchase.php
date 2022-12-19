@@ -28,6 +28,8 @@ if (isset($_SESSION['carrito'])) {
                 if (!$db->checkBillingData($v)) { //Comprueba que los datos de facturación no están vacios
 
                     if (!$db->userOrder($v, $_SESSION['carrito'])) {
+                        
+                        $tool->sendWhatsapp($client->telefono);
 
                         unset($_SESSION['carrito']);
 

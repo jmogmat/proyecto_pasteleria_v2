@@ -15,6 +15,8 @@ $arrayCampos = array();
 
 $arrayCampos = ['name', 'surname', 'email', 'phone', 'pass1', 'pass2'];
 
+$autenticado = '1';
+
 if ($tool->checkFieldsForm($arrayCampos)) {
 
     $name = trim($_POST['name']);
@@ -36,12 +38,14 @@ if ($tool->checkFieldsForm($arrayCampos)) {
 
                 if (!$db->registerUser($name, $surname, $email, $phone, $pass)) {
 
-                    echo json_encode(['success' => '202']);
+ 
+                            echo json_encode(['success' => '202']);
+                            return;
+                  
+                } else {
+                    echo json_encode(['error' => '403', 'msg' => 'El email introducido no es valido!']);
                     return;
                 }
-
-                //$id = $db->getLastUserId();
-                //$db->sendMailConfirmationRegister($id); No podemos aplicar esto debido a las restricciones de google gmail
             } else {
                 echo json_encode(['error' => '403', 'msg' => 'El email introducido no es valido!']);
                 return;

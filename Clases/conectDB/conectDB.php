@@ -4,8 +4,6 @@ namespace conectDB;
 
 require_once __DIR__ . '/../../autoload.php';
 
-use \email\email as email;
-
 class conectDB {
 
     private $ip;
@@ -158,37 +156,6 @@ class conectDB {
         }
     }
 
-    function sendMailConfirmationRegister($id_user) {
-
-        try {
-
-            $db = $this->pdo;
-
-            $sql = 'select nombre, email from Usuarios where id = ?;';
-
-            $db->beginTransaction();
-
-            if ($result = $db->prepare($sql)) {
-
-                $result->bindValue(1, $id_user, \PDO::PARAM_STR);
-
-                $result->execute();
-
-                while ($row = $result->fetch()) {
-                    $user_name = $row['nombre'];
-                    $email = $row['email'];
-                }
-            }
-
-            $mail = new email();
-            $mail->sendEmail($email, "<h1>Confirmación de registro " . $user_name . "</h1>", "Enhorabuena, te has registrado satisfactoriamente en nuestra página Panaderia M.L.!");
-            $db->commit();
-        } catch (\Exception $ex) {
-            echo $ex->getMessage();
-            $db->rollBack();
-        }
-    }
-
     function getLastUserId() {
 
         $db = $this->pdo;
@@ -214,8 +181,7 @@ class conectDB {
 
     function updateAccountUser($id_user, $name, $surname, $email, $phone, $pwd, $ruteImg) {
 
-
-        $sql = "update Usuarios set nombre= ?, apellido= ?, email= ?, telefono= ?,password=?, imagen=? where id = ?;";
+        $sql = "UPDATE usuarios SET nombre=?, apellido=?, email=?, telefono=?, password=?, imagen=? WHERE id=?";
 
         $db = $this->pdo;
 
@@ -227,13 +193,13 @@ class conectDB {
 
             if (($smtp = $db->prepare($sql))) {
 
-                $smtp->bindValue(1, $name, \PDO::PARAM_STR);
-                $smtp->bindValue(2, $surname, \PDO::PARAM_STR);
-                $smtp->bindValue(3, $email, \PDO::PARAM_STR);
-                $smtp->bindValue(4, $phone, \PDO::PARAM_STR);
-                $smtp->bindValue(5, $pwd, \PDO::PARAM_STR);
-                $smtp->bindValue(6, $ruteImg, \PDO::PARAM_STR);
-                $smtp->bindValue(7, $id_user, \PDO::PARAM_STR);
+                $smtp->bindParam(1, $name, \PDO::PARAM_STR);
+                $smtp->bindParam(2, $surname, \PDO::PARAM_STR);
+                $smtp->bindParam(3, $email, \PDO::PARAM_STR);
+                $smtp->bindParam(4, $phone, \PDO::PARAM_STR);
+                $smtp->bindParam(5, $pwd, \PDO::PARAM_STR);
+                $smtp->bindParam(6, $ruteImg, \PDO::PARAM_STR);
+                $smtp->bindParam(7, $id_user, \PDO::PARAM_STR);
 
                 $smtp->execute();
             }
@@ -1583,26 +1549,118 @@ class conectDB {
         $query = 'select * from usuarios where id = ?';
 
         $db = $this->pdo;
-        
+
         $result = false;
 
         try {
+
+            if ($stmt = $db->prepare($query)) {
+                $stmt->bindValue(1, $userId);
+                $stmt->execute();
+                $row = $stmt->fetch();
+
+                if (empty($row['telefono']) || $row['telefono'] === "" || empty($row['direccion']) || $row['direccion'] === "" || empty($row['ciudad']) || $row['ciudad'] === "" || empty($row['codigo_postal']) || $row['codigo_postal'] === "") {
+
+                    $result = true;
+                } else {
+                    $result = false;
+                }
+            }
+
+            return $result;
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    function saveUserAuthenticated($autenticado) {
+
+        $sql1 = 'select max(id) from usuarios';
+        $sql2 = 'insert into usuarios_autenticacion (id_usuario,autenticado,fecha) values (:id_usuario,:autenticado,now())';
+
+        $db = $this->pdo;
+        try {
+            $db->beginTransaction();
+            if ($stmt = $db->query($sql1)) {
+                if ($row = $stmt->fetch()) {
+                    $id_user = $row[0];
+                }
+            }
+            if ($stmt = $db->prepare($sql2)) {
+
+                $stmt->bindValue(':id_usuario', $id_user);
+                $stmt->bindValue(':autenticado', $autenticado);
+                $stmt->execute();
+            }
+            $db->commit();
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+            $db->rollBack();
+        }
+    }
+
+    function checkUserAuthenticated($email) {
+
+        $sql1 = 'select * from usuarios where email = :email';
+        $sql2 = 'select * from usuarios_autenticados where id_usuario = :idUser';
+        $bool = false;
+
+        $db = $this->pdo;
+
+        try {
+            if ($stmt = $db->prepare($sql1)) {
+
+                $stmt->bindValue(':email', $email);
+                $stmt->execute();
+
+                if ($row = $stmt->fetch()) {
+
+                    $id_user = $row[0];
+                }
+            }
+
+            if ($result = $db->prepare($sql2)) {
+
+                $result->bindValue(':idUser', $id_user);
+                $result->execute();
+
+                if ($fila = $result->fetch()) {
+
+                    if ($fila['autenticado'] == '1') {
+
+                        $bool = true;
+                    } else {
+                        $bool = false;
+                    }
+                }
+            }
+
+            return $bool;
+        } catch (\Exception $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    function getPhoneUser($email) {
+
+        $sql = 'select * from usuarios where email = :email';
+
+        $db = $this->pdo;
+
+        try {
             
-            if($stmt = $db->prepare($query)){
-                 $stmt->bindValue(1, $userId);
-                  $stmt->execute();
-                   $row = $stmt->fetch();
-                   
-                   if(empty($row['telefono']) || $row['telefono'] === "" || empty($row['direccion']) || $row['direccion'] === "" || empty($row['ciudad']) || $row['ciudad'] === "" || empty($row['codigo_postal']) || $row['codigo_postal'] === ""){
-                       
-                       $result = true;
-                   } else {
-                       $result = false;
-                   }
-                  
+             if ($stmt = $db->prepare($sql)) {
+
+                $stmt->bindValue(':email', $email);
+                $stmt->execute();
+
+                if ($row = $stmt->fetch()) {
+
+                    $phoneUser = $row['telefono'];
+                }
             }
             
-            return $result;
+            return $phoneUser;
             
         } catch (\Exception $ex) {
             echo $ex->getMessage();

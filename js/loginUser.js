@@ -21,7 +21,7 @@ function loginUser() {
 
                         if (result.isConfirmed) {
                           
-                           location.href ="./index.php";
+                           location.href ="PhpProject1/index.php";
 
                         }
                     })
@@ -37,6 +37,8 @@ function loginUser() {
                     })
 
                 }
+                
+               
             })
 
 

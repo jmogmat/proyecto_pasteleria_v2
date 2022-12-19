@@ -8,7 +8,6 @@ use \conectDB\conectDB as conect;
 $tool = new func();
 
 $tool->checkSession();
-//$user = json_decode($_SESSION['usuario']);
 
 header('Content-type: application/json; charset=utf-8');
 
@@ -32,24 +31,25 @@ if (($_SERVER["REQUEST_METHOD"] == "POST")) {
                     $hash = $result['password'];
 
                     if (password_verify($passLogin, $hash)) {
+                    
+                            $db->updateAccess($result['id']);
 
-                        $db->updateAccess($result['id']);
+                            $tool->saveSessionData($result);
 
-                        $tool->saveSessionData($result);
+                            $_SESSION['rol'] = $result['rol_usuario'];
 
-                        $_SESSION['rol'] = $result['rol_usuario'];
+                            if ($_SESSION['rol'] == '1') {
 
-                        if ($_SESSION['rol'] == '1') {
+                                echo json_encode(['success' => '202']);
+                                return;
+                            }
 
-                            echo json_encode(['success' => '202']);
-                            return;
-                        }
+                            if ($_SESSION['rol'] == '2') {
 
-                        if ($_SESSION['rol'] == '2') {
-
-                            echo json_encode(['success' => '202']);
-                            return;
-                        }
+                                echo json_encode(['success' => '202']);
+                                return;
+                            }
+                     
                     } else {
                         echo json_encode(['error' => '403', 'msg' => 'Varifica tu contraseña']);
                         return;
@@ -70,6 +70,8 @@ if (($_SERVER["REQUEST_METHOD"] == "POST")) {
         echo json_encode(['error' => '403', 'msg' => 'Error al procesar la solicitud']);
         return;
     }
-} echo json_encode(['error' => '404', 'msg' => 'No tienes permisos para acceder a este recurso']);
-return;
+} else {
+    echo json_encode(['error' => '404', 'msg' => 'No tienes permisos para acceder a este recurso']);
+    return;
+}
 ?>

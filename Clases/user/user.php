@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace user;
 
 class user implements \JsonSerializable {
@@ -42,7 +42,7 @@ class user implements \JsonSerializable {
         $this->$var = $value;
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize():mixed {
         return [
         'id' => $this->id,
         'nombre' => $this->name,

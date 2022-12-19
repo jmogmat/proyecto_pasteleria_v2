@@ -52,12 +52,13 @@ $db = new conect($_SESSION['rol']);
                                 </label>
                             </div>
                             <button class="w-100 btn btn-lg btn-primary" type="submit" id="btn_login" onclick="event.preventDefault();loginUser()">Iniciar sesión</button>
-                        </form>
-                        <fieldset class="border p-2 rounded">
+                        </form><br><br>
                             <h4 class="fw-normal" style="text-align:center">¿Todavía no eres cliente?</h4>
                             <h6 style="text-align:center">¡No esperes más!</h6>
-                            <button type="button" class="w-100 btn btn-lg btn-light" id="btn_registrarme" onclick="change1()"><p style="color: #a29676; margin: 0 auto;">Crea una cuenta</p></button>
-                        </fieldset>
+                            <button type="button" class="w-100 btn btn-lg btn-secondary" id="btn_registrarme" onclick="change1()"><p style="color:white; margin: 0 auto;">Crea una cuenta</p></button>
+                            <br><br>
+                        <h4 class="text-center">¿Has recibido un SMS de autenticación?</h4>
+                        <button type="button" class="w-100 btn btn-lg btn-secondary" onclick="authenticate()">Autenticarme</button>
                     </main>
                 </fieldset>
             </div>
@@ -128,6 +129,7 @@ $db = new conect($_SESSION['rol']);
         <script src="js/loginUser.js"></script>
         <script src="js/registerAndLogin.js"></script>
         <script src="js/index.js"></script>
+       
 
     </body>
 
